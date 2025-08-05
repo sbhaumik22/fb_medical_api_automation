@@ -7,7 +7,7 @@
 
 ## 📋 Overview
 
-This project is a robust API automation testing framework for the EB Medical application. It demonstrates a comprehensive approach to API testing using industry-standard tools and best practices. The framework follows BDD (Behavior-Driven Development) principles with Cucumber to create human-readable test specifications that serve as living documentation.
+This project is a robust API automation testing framework for the FV Medical application. It demonstrates a comprehensive approach to API testing using industry-standard tools and best practices. The framework follows BDD (Behavior-Driven Development) principles with Cucumber to create human-readable test specifications that serve as living documentation.
 
 ## 🛠️ Technologies & Tools
 
@@ -122,3 +122,4 @@ LinkedIn: [https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/](https
 
 
 *This project showcases my expertise in API automation testing, BDD methodology, and software quality assurance best practices, making me a strong candidate for QA Engineer, SDET, or Test Automation Engineer roles.*
+
