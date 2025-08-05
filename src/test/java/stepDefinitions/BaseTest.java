@@ -7,10 +7,9 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 public class BaseTest {
-    String JWTToken;
-    RequestSpecification requestSpecification;
-    ResponseSpecification responseSpecification;
     static Environments environments = Environments.valueOf("DEV");
+    
+    // Constants for context keys
     public static RequestSpecification getRequestSpec(){
         return new RequestSpecBuilder()
                 .setBaseUri(environments.getBaseUri())

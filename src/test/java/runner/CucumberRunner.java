@@ -6,17 +6,16 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/login.feature",            // Path to .feature files
-        glue = "stepDefinitions",                            // Step definitions package
+        features = "src/test/resources/features",            // Path to .feature files
+        glue = {"stepDefinitions"},                 // Step definitions and hooks packages
         plugin = {
                 "pretty",
-                "html:target/cucumber-reports/cucumber.html",
-                "json:target/cucumber-reports/cucumber.json"
+//                "html:target/cucumber-reports/cucumber.html",
+//                "json:target/cucumber-reports/cucumber.json"
         },
         monochrome = true                                   // Cleaner console output
 //        tags = "@SignUp"                                     // Run specific tag
 )
 public class CucumberRunner {
-
 
 }

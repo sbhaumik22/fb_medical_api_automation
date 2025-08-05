@@ -33,17 +33,15 @@ public class SignUpStepDefinition extends BaseTest {
         signupReq = given().spec(getRequestSpec()).body(signUpPayload);
     }
 
-    @When("the user sends a HTTP {string} request {string}")
-    public void the_user_sends_a_http_request(String HTTPMethod, String endpoint) {
+    @When("the user sends a HTTP {string} request to the signup endpoint {string}")
+    public void the_user_sends_a_http_request_to_the_signup_endpoint(String HTTPMethod, String endpoint) {
         String apiResource = EndPoints.valueOf(endpoint).getPath();
-        System.out.println(apiResource);
-        if (HTTPMethod.equalsIgnoreCase("POST")) {
-            signUpRes = signupReq.when().post(apiResource).then().spec(getResponseSpecification()).extract().response();
-            System.out.println("payload hit");
-        }
+        signUpRes = signupReq.when().post(apiResource).then().spec(getResponseSpecification()).extract().response();
+        System.out.println("payload hit");
+
     }
 
-    @Then("the response body should contain {string} as {string}")
+    @Then("the the sign-up response body should contain {string} as {string}")
     public void the_response_body_should_contain_as(String key, String expectedValue) {
         String actualValue = signUpRes.jsonPath().getString(key);
         assert expectedValue.equals(actualValue) : "Expected " + key + " should  be " + expectedValue + " but found " + actualValue;
@@ -51,8 +49,12 @@ public class SignUpStepDefinition extends BaseTest {
 
     @Then("get the token and patient profile id")
     public void get_the_token_and_patient_profile_id() {
-        JWTToken = signUpRes.jsonPath().getString("data.token");
-        System.out.println(JWTToken);
+        String token = signUpRes.jsonPath().getString("data.token");
+        String userId = signUpRes.jsonPath().getString("data.user._id");
+
+        // Store values in TestContext for use across features
+        AuthTokenContext.setToken(token);
+        System.out.println("token: " + token + " and " + "_id: " + userId);
     }
 }
 
