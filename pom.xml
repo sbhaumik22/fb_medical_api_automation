@@ -21,6 +21,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <testFailureIgnore>true</testFailureIgnore>
+            <includes>
+                <include>**/CucumberTest.java</include>
+            </includes>
+
         </configuration>
       </plugin>
       <plugin>

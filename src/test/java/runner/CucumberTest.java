@@ -10,12 +10,12 @@ import org.junit.runner.RunWith;
         glue = {"stepDefinitions"},                 // Step definitions and hooks packages
         plugin = {
                 "pretty",
-//                "html:target/cucumber-reports/cucumber.html",
-//                "json:target/cucumber-reports/cucumber.json"
+                "json:target/jsonReports/cucumber.json",         // JSON report for reporting plugin
+                "html:target/cucumber-html-report" // optional HTML report
         },
         monochrome = true                                   // Cleaner console output
 //        tags = "@SignUp"                                     // Run specific tag
 )
-public class CucumberRunner {
+public class CucumberTest {
 
 }
