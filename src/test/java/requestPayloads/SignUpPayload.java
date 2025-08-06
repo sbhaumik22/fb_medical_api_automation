@@ -1,4 +1,4 @@
-package POJOClasses;
+package requestPayloads;
 
 public class SignUpPayload {
     private String firstAndMiddleName;

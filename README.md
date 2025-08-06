@@ -27,7 +27,7 @@ The framework follows a modular architecture with clear separation of concerns:
 src/
 ├── test/
     ├── java/
-    │   ├── POJOClasses/         # Request/Response models
+    │   ├── requestPayloads/         # Request/Response models
     │   ├── Utility/             # Helper utilities
     │   ├── constants/           # API endpoints and environments
     │   ├── hooks/               # Cucumber hooks

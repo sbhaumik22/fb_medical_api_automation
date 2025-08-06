@@ -1,14 +1,18 @@
 package stepDefinitions;
 
-import POJOClasses.SignUpPayload;
+import io.cucumber.java.PendingException;
+import io.cucumber.java.en.And;
+import requestPayloads.SignUpPayload;
 import constants.EndPoints;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import responseModels.SignUpResponse;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class SignUpStepDefinition extends BaseTest {
     static Response signUpRes;
@@ -38,12 +42,17 @@ public class SignUpStepDefinition extends BaseTest {
         String apiResource = EndPoints.valueOf(endpoint).getPath();
         signUpRes = signupReq.when().post(apiResource).then().spec(getResponseSpecification()).extract().response();
         System.out.println("payload hit");
+    }
 
+    @Then("the sign-up response must match the expected schema")
+    public void validate_signup_response_schema() {
+        signUpRes.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/signup_response_schema.json"));
     }
 
     @Then("the the sign-up response body should contain {string} as {string}")
     public void the_response_body_should_contain_as(String key, String expectedValue) {
-        String actualValue = signUpRes.jsonPath().getString(key);
+        SignUpResponse signUpResponse = signUpRes.as(SignUpResponse.class);
+        String actualValue = signUpResponse.getStatus();
         assert expectedValue.equals(actualValue) : "Expected " + key + " should  be " + expectedValue + " but found " + actualValue;
     }
 
@@ -56,5 +65,7 @@ public class SignUpStepDefinition extends BaseTest {
         AuthTokenContext.setToken(token);
         System.out.println("token: " + token + " and " + "_id: " + userId);
     }
+
+
 }
 

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["status", "data"],
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "required": ["user", "token"],
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "required": ["email", "countryCode", "_id", "country", "profilePic"],
+          "properties": {
+            "email": { "type": "string", "format": "email" },
+            "countryCode": { "type": "string" },
+            "_id": { "type": "string" },
+            "profilePic": { "type": "string", "format": "uri" },
+            "country": {
+              "type": "object",
+              "required": ["_id"],
+              "properties": {
+                "_id": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

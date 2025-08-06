@@ -1,4 +1,4 @@
-package POJOClasses;
+package requestPayloads;
 
 public class LoginPayload {
     private String phoneNumber;

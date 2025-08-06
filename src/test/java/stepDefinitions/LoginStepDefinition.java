@@ -1,6 +1,6 @@
 package stepDefinitions;
 
-import POJOClasses.LoginPayload;
+import requestPayloads.LoginPayload;
 import constants.EndPoints;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
