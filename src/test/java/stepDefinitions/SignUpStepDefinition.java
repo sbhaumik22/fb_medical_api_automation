@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import requestPayloads.SignUpPayload;
 import constants.EndPoints;
@@ -14,9 +13,10 @@ import responseModels.SignUpResponse;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class SignUpStepDefinition extends BaseTest {
+public class SignUpStepDefinition extends SpecificationConfig {
     static Response signUpRes;
     RequestSpecification signupReq;
+    SignUpResponse signUpResponse;
 
     @Given("the user added a signup payload with {string}, {string}, {string},{string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
     public void theUserAddedASignupPayloadWith(String firstAndMiddleName, String lastName, String email, String alpha2code, String dateOfBirth, String countryCode, String phoneNumber, String password, String passwordConfirm, String gender, String acceptedVersion, String hnNumber) {
@@ -49,17 +49,17 @@ public class SignUpStepDefinition extends BaseTest {
         signUpRes.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/signup_response_schema.json"));
     }
 
-    @Then("the the sign-up response body should contain {string} as {string}")
+    @And("the the sign-up response body should contain {string} as {string}")
     public void the_response_body_should_contain_as(String key, String expectedValue) {
-        SignUpResponse signUpResponse = signUpRes.as(SignUpResponse.class);
+        signUpResponse = signUpRes.as(SignUpResponse.class);
         String actualValue = signUpResponse.getStatus();
         assert expectedValue.equals(actualValue) : "Expected " + key + " should  be " + expectedValue + " but found " + actualValue;
     }
 
-    @Then("get the token and patient profile id")
+    @And("get the token and patient profile id")
     public void get_the_token_and_patient_profile_id() {
-        String token = signUpRes.jsonPath().getString("data.token");
-        String userId = signUpRes.jsonPath().getString("data.user._id");
+        String token = signUpResponse.getData().getToken();
+        String userId = signUpResponse.getData().getUser().get_id();
 
         // Store values in TestContext for use across features
         AuthTokenContext.setToken(token);

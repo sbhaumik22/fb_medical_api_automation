@@ -11,4 +11,4 @@ Feature: User Login
 
     Examples:
       | phoneNumber | password   | countryCode |
-      | 978907276   | Test@1234 | 84          |
+      | 978907276   | Test@1234  | 84          |

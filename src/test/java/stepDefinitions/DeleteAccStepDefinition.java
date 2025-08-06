@@ -9,7 +9,7 @@ import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteAccStepDefinition extends BaseTest {
+public class DeleteAccStepDefinition extends SpecificationConfig {
     RequestSpecification reqDeleteSpec;
     Response delRes;
     @Given("the user sets the {string} header with a valid bearer token")

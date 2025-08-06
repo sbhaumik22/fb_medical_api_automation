@@ -6,7 +6,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-public class BaseTest {
+public class SpecificationConfig {
     static Environments environments = Environments.valueOf("DEV");
     
     // Constants for context keys

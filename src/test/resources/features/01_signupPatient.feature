@@ -8,4 +8,4 @@ Feature: Validate Registration of patients on FB@Home app
 
     Examples:
       | firstAndMiddleName | lastName | email                    | alpha2code | dateOfBirth  | countryCode | phoneNumber  | password     | passwordConfirm | gender | acceptedVersion | hnNumber   |
-      | Emily              | Watson   | emily.watson@example.com | VN         | 1990-05-20   | 84          | 978907276    | Test@1234   | Test@1234      | Female | 9.3             | 874185296  |
+      | Emily              | Watson   | emily.watson@example.com | VN         | 1990-05-20   | 84          | 978907276    | Test@1234    | Test@1234       | Female | 9.3             | 874185296  |
