@@ -10,6 +10,7 @@ import models.TestDataStore;
 import responseModels.GetUserDetailsResponse;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.*;
 import static stepDefinitions.SpecificationConfig.getRequestSpec;
 
 public class GetUserDetails {
@@ -21,7 +22,6 @@ public class GetUserDetails {
     RequestSpecification reqUserDetails;
     Response userDetailsRes;
     GetUserDetailsResponse getUserDetailsResponse;
-
 
     @Given("the user sets the {string} header with a valid bearer token")
     public void the_user_sets_the_header_with_a_valid_bearer_token(String auth) {
@@ -40,14 +40,17 @@ public class GetUserDetails {
     }
     @Then("the response body should contain valid patient profile details")
     public void the_response_body_should_contain_valid_patient_profile_details() {
-        String actualValue = getUserDetailsResponse.getData().getUserProfile().getEmail();
-        String expectedValue = testData.getPatientProfile().getEmail();
-        assert expectedValue.equals(actualValue) : "Expected value is " + expectedValue + " but found " + actualValue;
+        assertEquals(testData.getPatientProfile().getFirstAndMiddleName(), getUserDetailsResponse.getData().getUserProfile().getFirstName());
+        assertEquals(testData.getPatientProfile().getLastName(), getUserDetailsResponse.getData().getUserProfile().getLastName());
+        assertEquals(testData.getPatientProfile().getDateOfBirth(), getUserDetailsResponse.getData().getUserProfile().getDateOfBirth());
+        assertEquals(testData.getPatientProfile().getGender(), getUserDetailsResponse.getData().getUserProfile().getGender());
+        assertEquals(testData.getPatientProfile().getCountryCode(), getUserDetailsResponse.getData().getUserProfile().getCountryCode());
+        assertEquals(testData.getPatientProfile().getHnNumber(), getUserDetailsResponse.getData().getUserProfile().getHnNumber());
+        assertEquals(testData.getPatientProfile().getPhoneNumber(), getUserDetailsResponse.getData().getUserProfile().getPhoneNumber());
+        assertEquals(testData.getPatientProfile().getEmail(), getUserDetailsResponse.getData().getUserProfile().getEmail());
     }
     @Then("all required verification flags should be present and boolean")
     public void all_required_verification_flags_should_be_present_and_boolean() {
-        boolean actualValue = getUserDetailsResponse.getData().getUserProfile().getIsHNVerified();
-        boolean expectedValue = false;
-        assert expectedValue == actualValue : "Expected value is " + expectedValue + " but found " + actualValue;
+        assertFalse(getUserDetailsResponse.getData().getUserProfile().getIsHNVerified()); //first time after signUp
     }
 }
