@@ -1,6 +1,8 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.And;
+import models.PatientProfile;
+import models.TestDataStore;
 import requestPayloads.SignUpPayload;
 import constants.EndPoints;
 import io.cucumber.java.en.Given;
@@ -14,25 +16,31 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class SignUpStepDefinition extends SpecificationConfig {
+    private final TestDataStore testData;
     static Response signUpRes;
     RequestSpecification signupReq;
     SignUpResponse signUpResponse;
 
-    @Given("the user added a signup payload with {string}, {string}, {string},{string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
-    public void theUserAddedASignupPayloadWith(String firstAndMiddleName, String lastName, String email, String alpha2code, String dateOfBirth, String countryCode, String phoneNumber, String password, String passwordConfirm, String gender, String acceptedVersion, String hnNumber) {
+    public SignUpStepDefinition(TestDataStore testData) {
+        this.testData = testData;
+    }
+
+    @Given("the user added a signup payload with patient details")
+    public void the_user_added_a_signup_payload_with_patient_details() {
+        PatientProfile profile = testData.getPatientProfile();
         SignUpPayload signUpPayload = new SignUpPayload();
-        signUpPayload.setFirstAndMiddleName(firstAndMiddleName);
-        signUpPayload.setLastName(lastName);
-        signUpPayload.setEmail(email);
-        signUpPayload.setAlpha2code(alpha2code);
-        signUpPayload.setDateOfBirth(dateOfBirth);
-        signUpPayload.setCountryCode(countryCode);
-        signUpPayload.setPhoneNumber(phoneNumber);
-        signUpPayload.setPassword(password);
-        signUpPayload.setPasswordConfirm(passwordConfirm);
-        signUpPayload.setGender(gender);
-        signUpPayload.setAcceptedVersion(acceptedVersion);
-        signUpPayload.setHnNumber(hnNumber);
+        signUpPayload.setFirstAndMiddleName(profile.getFirstAndMiddleName());
+        signUpPayload.setLastName(profile.getLastName());
+        signUpPayload.setEmail(profile.getEmail());
+        signUpPayload.setAlpha2code(profile.getAlpha2code());
+        signUpPayload.setDateOfBirth(profile.getDateOfBirth());
+        signUpPayload.setCountryCode(profile.getCountryCode());
+        signUpPayload.setPhoneNumber(profile.getPhoneNumber());
+        signUpPayload.setPassword(profile.getPassword());
+        signUpPayload.setPasswordConfirm(profile.getPassword());
+        signUpPayload.setGender(profile.getGender());
+        signUpPayload.setAcceptedVersion(profile.getAcceptedVersion());
+        signUpPayload.setHnNumber(profile.getHnNumber());
         // payload.setSelectedLanguage("EN"); // Uncomment if applicable
         signupReq = given().spec(getRequestSpec()).body(signUpPayload);
     }
@@ -65,7 +73,5 @@ public class SignUpStepDefinition extends SpecificationConfig {
         AuthTokenContext.setToken(token);
         System.out.println("token: " + token + " and " + "_id: " + userId);
     }
-
-
 }
 

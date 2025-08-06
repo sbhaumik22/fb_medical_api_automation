@@ -12,8 +12,8 @@ import static io.restassured.RestAssured.given;
 public class DeleteAccStepDefinition extends SpecificationConfig {
     RequestSpecification reqDeleteSpec;
     Response delRes;
-    @Given("the user sets the {string} header with a valid bearer token")
-    public void the_user_sets_the_header_with_a_valid_bearer_token(String auth) {
+    @Given("the user sets the {string} header with a valid bearer token for deletion")
+    public void the_user_sets_the_header_with_a_valid_bearer_token_for_deletion(String auth) {
         reqDeleteSpec = given().header(auth, "Bearer " +  AuthTokenContext.getToken()).spec(getRequestSpec());
     }
     @When("the user sends a HTTP {string} request to the delete endpoint {string}")

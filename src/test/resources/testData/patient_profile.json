@@ -1,0 +1,14 @@
+{
+  "firstAndMiddleName": "Emily",
+  "lastName": "Watson",
+  "email": "emily.watson@example.com",
+  "alpha2code": "VN",
+  "dateOfBirth": "1990-05-20",
+  "countryCode": "84",
+  "phoneNumber": "978907276",
+  "password": "Test@1234",
+  "passwordConfirm": "Test@1234",
+  "gender": "Female",
+  "acceptedVersion": "9.3",
+  "hnNumber": "874185296"
+}
