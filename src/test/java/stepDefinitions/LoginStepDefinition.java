@@ -1,5 +1,7 @@
 package stepDefinitions;
 
+import models.PatientProfile;
+import models.TestDataStore;
 import requestPayloads.LoginPayload;
 import constants.EndPoints;
 import io.cucumber.java.en.Given;
@@ -12,13 +14,19 @@ import responseModels.LoginResponse;
 import static io.restassured.RestAssured.given;
 
 public class LoginStepDefinition extends SpecificationConfig {
+    private final TestDataStore testData;
+
+    public LoginStepDefinition(TestDataStore testData){
+        this.testData = testData;
+    }
     RequestSpecification loginReqSpec;
     Response loginRes;
     LoginResponse loginResponse;
 
-    @Given("the login payload with country code {string} phone Number {string} and password {string}")
-    public void the_login_payload_with_country_code_phone_number_and_password(String countryCode, String phoneNumber, String password) {
-        LoginPayload loginPayload = new LoginPayload(countryCode, phoneNumber, password);
+    @Given("the login payload with countryCode, phone Number and password")
+    public void the_login_payload_with_countryCode_phone_Number_and_password() {
+        PatientProfile profile = testData.getPatientProfile();
+        LoginPayload loginPayload = new LoginPayload(profile.getCountryCode(), profile.getPhoneNumber(), profile.getPassword());
         loginReqSpec = given().spec(getRequestSpec()).body(loginPayload);
     }
     @When("the user sends a HTTP {string} request to the login endpoint {string}")
