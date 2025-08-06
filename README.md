@@ -119,7 +119,3 @@ LinkedIn: [https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/](https
 - **CI/CD Integration**: Framework designed to integrate with CI/CD pipelines
 - **Test Data Management**: Effective strategies for test data handling
 - **Documentation**: Clear and comprehensive technical documentation
-
-
-*This project showcases my expertise in API automation testing, BDD methodology, and software quality assurance best practices, making me a strong candidate for QA Engineer, SDET, or Test Automation Engineer roles.*
-
