@@ -13,7 +13,7 @@ import responseModels.LoginResponse;
 
 import static io.restassured.RestAssured.given;
 
-public class LoginStepDefinition extends SpecificationConfig {
+public class LoginStepDefinition extends BaseStepDefinition {
     private final TestDataStore testData;
 
     public LoginStepDefinition(TestDataStore testData){
@@ -27,7 +27,7 @@ public class LoginStepDefinition extends SpecificationConfig {
     public void the_login_payload_with_countryCode_phone_Number_and_password() {
         PatientProfile profile = testData.getPatientProfile();
         LoginPayload loginPayload = new LoginPayload(profile.getCountryCode(), profile.getPhoneNumber(), profile.getPassword());
-        loginReqSpec = given().spec(getRequestSpec()).body(loginPayload);
+        loginReqSpec = given().spec(getRequestSpecification()).body(loginPayload);
     }
     @When("the user sends a HTTP {string} request to the login endpoint {string}")
     public void the_user_sends_a_http_request_to_the_login_endpoint(String HTTPMethod, String endpoint) {

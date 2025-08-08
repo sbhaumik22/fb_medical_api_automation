@@ -4,118 +4,136 @@
 [![Maven](https://img.shields.io/badge/Maven-3.8.6-blue.svg)](https://maven.apache.org/)
 [![Cucumber](https://img.shields.io/badge/Cucumber-7.26.0-green.svg)](https://cucumber.io/)
 [![REST Assured](https://img.shields.io/badge/REST_Assured-5.5.5-blue.svg)](https://rest-assured.io/)
+[![JavaFaker](https://img.shields.io/badge/JavaFaker-1.0.2-yellow.svg)](https://github.com/DiUS/java-faker)
+[![Jackson](https://img.shields.io/badge/Jackson-2.19.2-red.svg)](https://github.com/FasterXML/jackson)
 
 ## 📋 Overview
 
-This project is a robust API automation testing framework for the FV Medical application. It demonstrates a comprehensive approach to API testing using industry-standard tools and best practices. The framework follows BDD (Behavior-Driven Development) principles with Cucumber to create human-readable test specifications that serve as living documentation.
+This project is a **production-ready API automation testing framework** for the FV Medical application, built following **industry-standard practices** and modern test automation principles. The framework demonstrates a comprehensive approach to API testing using cutting-edge tools and architectural patterns that align with current industry standards.
 
-## 🛠️ Technologies & Tools
+The framework follows **BDD (Behavior-Driven Development)** principles with Cucumber to create human-readable test scenarios that bridge the gap between technical and non-technical stakeholders, making it suitable for enterprise-level projects.
 
-- **Java**: Core programming language
-- **Maven**: Dependency management and build tool
-- **Cucumber**: BDD test framework
-- **REST Assured**: API testing library
-- **JUnit**: Test runner
-- **Jackson**: JSON processing
-- **JavaFaker**: Test data generation
-
-## 🏗️ Architecture
-
-The framework follows a modular architecture with clear separation of concerns:
+## 🏗️ Framework Architecture
 
 ```
 src/
 ├── test/
     ├── java/
-    │   ├── requestPayloads/         # Request/Response models
-    │   ├── Utility/             # Helper utilities
-    │   ├── constants/           # API endpoints and environments
-    │   ├── hooks/               # Cucumber hooks
-    │   ├── runner/              # Test runners
-    │   └── stepDefinitions/     # Step implementations
+    │   ├── constants/           # API endpoints and environment configurations
+    │   ├── hooks/               # Cucumber lifecycle hooks for setup/teardown
+    │   ├── models/              # Data models and test data store
+    │   ├── requestPayloads/     # Request payload models (POJOs)
+    │   ├── responseModels/      # Response model classes for deserialization
+    │   ├── runner/              # Cucumber test runner configuration
+    │   ├── stepDefinitions/     # Step definition implementations
+    │   └── Utility/             # Test data factories and helper utilities
     └── resources/
-        └── features/            # Cucumber feature files
+        ├── features/            # Gherkin feature files (BDD scenarios)
+        ├── schemas/             # JSON schema files for response validation
+        └── testData/            # Static test data files (JSON)
 ```
 
-## ✨ Key Features
+## ✨ Key Features & Industry Standards Compliance
 
-- **BDD Approach**: Feature files written in Gherkin syntax for better readability and collaboration
-- **Modular Framework**: Well-organized code structure for maintainability
-- **Environment Management**: Support for multiple environments (DEV for now)
-- **Authentication Handling**: Centralized token management via AuthTokenContext
-- **Data-Driven Testing**: Examples tables in feature files for multiple test scenarios
-- **Reporting**: Cucumber HTML and JSON reports
-- **Test Data Generation**: Dynamic test data creation using JavaFaker
+### 🎯 **BDD Implementation**
+- **Gherkin Syntax**: Feature files written in business-readable language
+- **Living Documentation**: Tests serve as executable specifications
+- **Stakeholder Collaboration**: Bridge between business and technical teams
 
-## 🔐 Authentication Management
+### 🏛️ **Enterprise Architecture Patterns**
+- **Page Object Model Adaptation**: Applied to API testing with payload/response models
+- **Dependency Injection**: Using Cucumber PicoContainer for clean object management
+- **Separation of Concerns**: Clear separation between test logic, data, and configuration
+- **Single Responsibility Principle**: Each class has a focused, single purpose
 
-The framework implements a robust authentication mechanism using a Singleton pattern:
+### 📊 **Test Data Management (Industry Best Practice)**
+- **Hybrid Approach**: Combines static JSON files with dynamic data generation
+- **Data Factory Pattern**: `TestDataFactory` using JavaFaker for realistic test data
+- **Test Data Isolation**: Each test gets fresh, independent data
+- **Environment-Specific Data**: Configurable data sources per environment
+- **Data-Driven Testing**: JSON-based test data for maintainability
 
-- **AuthTokenContext**: A centralized class that stores and manages JWT tokens across test scenarios
-- **Token Sharing**: Authentication tokens obtained during signup/login are stored and reused in subsequent API calls
-- **Clean State**: Tokens are properly managed to ensure test isolation
+### 🔒 **Security & Token Management**
+- **JWT Token Handling**: Secure token storage and management across test scenarios
+- **Authentication Context**: Centralized token management with `AuthTokenContext`
+- **Session Management**: Proper cleanup and token lifecycle management
 
-## 🔄 API Workflows Covered
+### 🛡️ **Validation & Quality Assurance**
+- **JSON Schema Validation**: Contract testing with schema validation
+- **Response Model Mapping**: Type-safe response handling with POJOs
+- **Assertion Strategies**: Multiple validation layers for comprehensive testing
+- **Error Handling**: Robust error handling and meaningful failure messages
 
-1. **Patient Registration**: Complete signup flow with validation
-2. **User Authentication**: Login functionality with token validation
-3. **Account Management**: Account deletion and verification
+### 📈 **Reporting & Observability**
+- **Multi-Format Reporting**: JSON, HTML, and console reports
+- **Cucumber Reports**: Industry-standard BDD reporting
+- **Traceability**: Clear mapping between requirements and test execution
+- **CI/CD Integration**: Maven-based execution suitable for pipeline integration
 
-## 🚀 Getting Started
+## 🔄 API Test Coverage & Workflows
 
-### Prerequisites
+### 🏥 **Complete Patient Journey Testing**
+1. **Patient Registration** (`01_signupPatient.feature`)
+   - Complete signup flow with comprehensive field validation
+   - JSON schema validation for response structure
+   - Token extraction and storage for subsequent tests
 
-- Java JDK 11 or higher
-- Maven 3.6 or higher
-- Git
+2. **User Authentication** (`02_loginPatient.feature`)
+   - Login functionality with credential validation
+   - JWT token validation and management
+   - Session establishment verification
 
-## 📊 Reporting
+3. **Profile Management** (`03_getUserProfile.feature`)
+   - Authenticated user profile retrieval
+   - Data integrity validation
+   - Verification status checks
 
-After test execution, reports are generated in:
-- HTML Report: `target/cucumber-html-reports/overview-features.html`
-- JSON Report: `target/cucumber-reports/cucumber.json`
+4. **Account Lifecycle** (`04_deletePatientAcc.feature`)
+   - Secure account deletion workflow
+   - Data cleanup verification
+   - End-to-end lifecycle completion
 
-## 🔮 Future Enhancements
+### 🔗 **Test Dependencies & Flow**
+- **Sequential Execution**: Tests are designed to run in sequence
+- **State Management**: Token and user data shared across scenarios
+- **Clean Teardown**: Proper cleanup after test completion
 
-- **API Contract Testing**: Integration with tools like Pact for contract testing
-- **Performance Testing**: Adding performance metrics collection
-- **Advanced Reporting**: Integration with dashboarding tools
+## 📊 Reporting & Analytics
 
-## 🧪 Test Data Management
+### 📈 **Multi-Tier Reporting Strategy**
+After test execution, comprehensive reports are generated:
 
-The framework uses a combination of:
-- Static test data in feature files
-- Dynamic data generation using JavaFaker
-- Environment-specific configurations
+- **JSON Reports**: `target/jsonReports/cucumber.json` (Machine-readable)
+- **HTML Reports**: `target/cucumber-html-report` (Human-readable)
+- **Advanced Cucumber Reports**: `target/cucumber-html-reports` (Enterprise-grade)
+- **Console Output**: Real-time execution feedback
 
-## 🔒 Security Considerations
+### 📋 **Report Features**
+- **Test Execution Summary**: Pass/fail statistics with timing
+- **Step-by-Step Details**: Granular execution information
+- **Screenshot Integration**: (Configurable for UI components)
+- **Trend Analysis**: Historical test execution data
+- **CI/CD Integration**: Jenkins/GitHub Actions compatible
 
-- Sensitive data is not hardcoded
-- Authentication tokens are managed securely
-- Environment-specific configurations are separated
+## 🛠️ Technology Stack & Dependencies
 
-## 💻 Code Quality & Best Practices
+### 🔧 **Core Technologies**
+- **Java 17**: Modern LTS version with enhanced features
+- **Maven 3.8+**: Advanced dependency and build management
+- **Cucumber 7.26.0**: Latest BDD framework with enhanced features
+- **REST Assured 5.5.5**: Industry-leading API testing library
+- **JUnit 4.13.2**: Reliable test execution framework
 
-- **Clean Code**: Follows SOLID principles and clean code practices
-- **Reusability**: Common functionality extracted into utility classes
-- **Maintainability**: Consistent naming conventions and code organization
-- **Error Handling**: Robust error handling and reporting
-- **Comments & Documentation**: Well-documented code with meaningful comments
+### 📚 **Supporting Libraries**
+- **Jackson 2.19.2**: High-performance JSON processing
+- **JavaFaker 1.0.2**: Realistic test data generation
+- **JSON Schema Validator 5.4.0**: Contract testing support
+- **Cucumber PicoContainer 7.14.0**: Dependency injection
+- **Groovy 4.0.27**: Advanced scripting capabilities
+
+
 
 ## 📬 Contact
 
-Soumesh Bhaumik: [bhaumiksoumesh12@gmail.com](mailto:your.email@example.com)
-LinkedIn: [https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/](https://www.linkedin.com/in/yourprofile/)
-
----
-
-## 🌟 Skills Demonstrated
-
-- **API Testing**: Expertise in designing and implementing comprehensive API test suites
-- **Test Automation**: Strong knowledge of test automation principles and frameworks
-- **BDD Implementation**: Practical application of Behavior-Driven Development methodology
-- **Java Programming**: Proficient Java coding with object-oriented design principles
-- **Design Patterns**: Implementation of Singleton pattern for state management
-- **CI/CD Integration**: Framework designed to integrate with CI/CD pipelines
-- **Test Data Management**: Effective strategies for test data handling
-- **Documentation**: Clear and comprehensive technical documentation
+Soumesh Bhaumik: [bhaumiksoumesh12@gmail.com](mailto:bhaumiksoumesh12@gmail.com)
+LinkedIn: [https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/](https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/)

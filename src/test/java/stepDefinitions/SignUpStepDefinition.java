@@ -15,7 +15,7 @@ import responseModels.SignUpResponse;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class SignUpStepDefinition extends SpecificationConfig {
+public class SignUpStepDefinition extends BaseStepDefinition {
     private final TestDataStore testData;
     static Response signUpRes;
     RequestSpecification signupReq;
@@ -42,14 +42,13 @@ public class SignUpStepDefinition extends SpecificationConfig {
         signUpPayload.setAcceptedVersion(profile.getAcceptedVersion());
         signUpPayload.setHnNumber(profile.getHnNumber());
         // payload.setSelectedLanguage("EN"); // Uncomment if applicable
-        signupReq = given().spec(getRequestSpec()).body(signUpPayload);
+        signupReq = given().spec(getRequestSpecification()).body(signUpPayload);
     }
 
     @When("the user sends a HTTP {string} request to the signup endpoint {string}")
     public void the_user_sends_a_http_request_to_the_signup_endpoint(String HTTPMethod, String endpoint) {
         String apiResource = EndPoints.valueOf(endpoint).getPath();
         signUpRes = signupReq.when().post(apiResource).then().spec(getResponseSpecification()).extract().response();
-        System.out.println("payload hit");
     }
 
     @Then("the sign-up response must match the expected schema")

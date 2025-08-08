@@ -6,11 +6,11 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-public class SpecificationConfig {
+public class BaseStepDefinition {
     static Environments environments = Environments.valueOf("DEV");
     
     // Constants for context keys
-    public static RequestSpecification getRequestSpec(){
+    public static RequestSpecification getRequestSpecification(){
         return new RequestSpecBuilder()
                 .setBaseUri(environments.getBaseUri())
                 .setContentType("application/json")
