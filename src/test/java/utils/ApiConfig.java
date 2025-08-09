@@ -1,4 +1,4 @@
-package stepDefinitions;
+package utils;
 
 import constants.Environments;
 import io.restassured.builder.RequestSpecBuilder;
@@ -6,7 +6,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-public class BaseStepDefinition {
+public class ApiConfig {
     static Environments environments = Environments.valueOf("DEV");
     
     // Constants for context keys

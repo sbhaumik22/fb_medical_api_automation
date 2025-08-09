@@ -1,4 +1,4 @@
-package models;
+package utils;
 
 public class PatientProfile {
     private String firstAndMiddleName;
@@ -12,12 +12,12 @@ public class PatientProfile {
     private String gender;
     private String dateOfBirth;
     private String acceptedVersion;
-    private String hnNumber;
+//    private String hnNumber;
 
-    // Getters and Setters
     public String getFirstAndMiddleName() {
         return firstAndMiddleName;
     }
+
     public void setFirstAndMiddleName(String firstAndMiddleName) {
         this.firstAndMiddleName = firstAndMiddleName;
     }
@@ -25,6 +25,7 @@ public class PatientProfile {
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -32,6 +33,7 @@ public class PatientProfile {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -39,6 +41,7 @@ public class PatientProfile {
     public String getAlpha2code() {
         return alpha2code;
     }
+
     public void setAlpha2code(String alpha2code) {
         this.alpha2code = alpha2code;
     }
@@ -46,6 +49,7 @@ public class PatientProfile {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -53,6 +57,7 @@ public class PatientProfile {
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
+
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
@@ -60,6 +65,7 @@ public class PatientProfile {
     public String getCountryCode() {
         return countryCode;
     }
+
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
@@ -67,6 +73,7 @@ public class PatientProfile {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -74,6 +81,7 @@ public class PatientProfile {
     public String getGender() {
         return gender;
     }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -81,6 +89,7 @@ public class PatientProfile {
     public String getDateOfBirth() {
         return dateOfBirth;
     }
+
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -88,14 +97,15 @@ public class PatientProfile {
     public String getAcceptedVersion() {
         return acceptedVersion;
     }
+
     public void setAcceptedVersion(String acceptedVersion) {
         this.acceptedVersion = acceptedVersion;
     }
 
-    public String getHnNumber() {
-        return hnNumber;
-    }
-    public void setHnNumber(String hnNumber) {
-        this.hnNumber = hnNumber;
-    }
+//    public String getHnNumber() {
+//        return hnNumber;
+//    }
+//    public void setHnNumber(String hnNumber) {
+//        this.hnNumber = hnNumber;
+//    }
 }

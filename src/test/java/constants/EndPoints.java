@@ -1,6 +1,7 @@
 package constants;
 
 public enum EndPoints {
+    USER_SIGN_UP_PRE_CHECK("/api/v1/user/auth/presign_up"),
     USER_SIGN_UP("/api/v1/user/auth/sign_up"),
     USER_LOGIN("/api/v1/user/auth/sign_in"),
     USER_DELETE("/api/v1/user/profile"),

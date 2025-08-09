@@ -1,33 +1,30 @@
 package stepDefinitions;
 
-import io.cucumber.java.en.And;
-import models.PatientProfile;
-import models.TestDataStore;
-import requestPayloads.SignUpPayload;
 import constants.EndPoints;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import requestPayloads.SignUpPayload;
 import responseModels.SignUpResponse;
+import utils.ApiConfig;
+import utils.PatientProfile;
+import utils.SharedTestContext;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.junit.Assert.assertEquals;
 
-public class SignUpStepDefinition extends BaseStepDefinition {
-    private final TestDataStore testData;
+public class SignUpStepDefinition extends ApiConfig {
     static Response signUpRes;
     RequestSpecification signupReq;
     SignUpResponse signUpResponse;
 
-    public SignUpStepDefinition(TestDataStore testData) {
-        this.testData = testData;
-    }
-
     @Given("the user added a signup payload with patient details")
     public void the_user_added_a_signup_payload_with_patient_details() {
-        PatientProfile profile = testData.getPatientProfile();
+        PatientProfile profile = SharedTestContext.getPatientProfile();
         SignUpPayload signUpPayload = new SignUpPayload();
         signUpPayload.setFirstAndMiddleName(profile.getFirstAndMiddleName());
         signUpPayload.setLastName(profile.getLastName());
@@ -40,7 +37,7 @@ public class SignUpStepDefinition extends BaseStepDefinition {
         signUpPayload.setPasswordConfirm(profile.getPassword());
         signUpPayload.setGender(profile.getGender());
         signUpPayload.setAcceptedVersion(profile.getAcceptedVersion());
-        signUpPayload.setHnNumber(profile.getHnNumber());
+//        signUpPayload.setHnNumber(profile.getHnNumber());
         // payload.setSelectedLanguage("EN"); // Uncomment if applicable
         signupReq = given().spec(getRequestSpecification()).body(signUpPayload);
     }
@@ -60,17 +57,13 @@ public class SignUpStepDefinition extends BaseStepDefinition {
     public void the_response_body_should_contain_as(String key, String expectedValue) {
         signUpResponse = signUpRes.as(SignUpResponse.class);
         String actualValue = signUpResponse.getStatus();
-        assert expectedValue.equals(actualValue) : "Expected " + key + " should  be " + expectedValue + " but found " + actualValue;
+        assertEquals(actualValue, expectedValue);
     }
 
     @And("get the token and patient profile id")
     public void get_the_token_and_patient_profile_id() {
-        String token = signUpResponse.getData().getToken();
-        String userId = signUpResponse.getData().getUser().get_id();
-
-        // Store values in TestContext for use across features
-        AuthTokenContext.setToken(token);
-        System.out.println("token: " + token + " and " + "_id: " + userId);
+        SharedTestContext.setToken(signUpResponse.getData().getToken());
+        SharedTestContext.setUserId(signUpResponse.getData().getUser().get_id());
     }
 }
 

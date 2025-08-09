@@ -5,17 +5,11 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(
-        features = "src/test/resources/features",            // Path to .feature files
-        glue = {"stepDefinitions", "hooks"},                 // Step definitions and hooks packages
-        plugin = {
-                "pretty",
-                "json:target/jsonReports/cucumber.json",         // JSON report for reporting plugin
-                "html:target/cucumber-html-report" // optional HTML report
-        },
-        monochrome = true                                   // Cleaner console output
-//        tags = "@SignUp"                                     // Run specific tag
-)
+@CucumberOptions(features = "src/test/resources/features", glue = {"stepDefinitions", "hooks", "utils"}, plugin = {
+        "pretty",
+        "json:target/jsonReports/cucumber.json",
+        "html:target/cucumber-html-report"
+}, monochrome = true)
 public class CucumberTest {
 
 }

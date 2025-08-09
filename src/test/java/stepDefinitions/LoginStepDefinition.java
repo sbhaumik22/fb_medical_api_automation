@@ -1,7 +1,5 @@
 package stepDefinitions;
 
-import models.PatientProfile;
-import models.TestDataStore;
 import requestPayloads.LoginPayload;
 import constants.EndPoints;
 import io.cucumber.java.en.Given;
@@ -10,22 +8,20 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import responseModels.LoginResponse;
+import utils.ApiConfig;
+import utils.PatientProfile;
+import utils.SharedTestContext;
 
 import static io.restassured.RestAssured.given;
 
-public class LoginStepDefinition extends BaseStepDefinition {
-    private final TestDataStore testData;
-
-    public LoginStepDefinition(TestDataStore testData){
-        this.testData = testData;
-    }
+public class LoginStepDefinition extends ApiConfig {
     RequestSpecification loginReqSpec;
     Response loginRes;
     LoginResponse loginResponse;
 
     @Given("the login payload with countryCode, phone Number and password")
     public void the_login_payload_with_countryCode_phone_Number_and_password() {
-        PatientProfile profile = testData.getPatientProfile();
+        PatientProfile profile = SharedTestContext.getPatientProfile();
         LoginPayload loginPayload = new LoginPayload(profile.getCountryCode(), profile.getPhoneNumber(), profile.getPassword());
         loginReqSpec = given().spec(getRequestSpecification()).body(loginPayload);
     }
@@ -43,6 +39,7 @@ public class LoginStepDefinition extends BaseStepDefinition {
     @Then("the response should include a valid token")
     public void the_response_should_include_a_valid_token() {
         String token = loginResponse.getData().getToken();
-        AuthTokenContext.setToken(token);
+        SharedTestContext.setToken(token);
+        System.out.println("User ID is: " + SharedTestContext.getUserId());
     }
 }

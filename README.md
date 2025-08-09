@@ -26,7 +26,7 @@ src/
     │   ├── responseModels/      # Response model classes for deserialization
     │   ├── runner/              # Cucumber test runner configuration
     │   ├── stepDefinitions/     # Step definition implementations
-    │   └── Utility/             # Test data factories and helper utilities
+    │   └── utils/             # Test data factories and helper utilities
     └── resources/
         ├── features/            # Gherkin feature files (BDD scenarios)
         ├── schemas/             # JSON schema files for response validation
