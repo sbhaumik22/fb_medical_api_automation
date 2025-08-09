@@ -57,6 +57,6 @@ public class GetUserDetailsStepDefinition {
 
     @And("get the relative id of the user")
     public void get_the_relative_id_of_the_user() {
-
+        SharedTestContext.setRelativeId(getUserDetailsResponse.getData().getUserProfile().get_id());
     }
 }
