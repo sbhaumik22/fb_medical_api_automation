@@ -1,36 +1,127 @@
-﻿# FV Medical API Automation Framework
+﻿# FV Hospital API Automation Framework
 
 [![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.8.6-blue.svg)](https://maven.apache.org/)
-[![Cucumber](https://img.shields.io/badge/Cucumber-7.26.0-green.svg)](https://cucumber.io/)
+[![Cucumber](https://img.shields.io/badge/Cucumber-7.27.0-green.svg)](https://cucumber.io/)
 [![REST Assured](https://img.shields.io/badge/REST_Assured-5.5.5-blue.svg)](https://rest-assured.io/)
-[![JavaFaker](https://img.shields.io/badge/JavaFaker-1.0.2-yellow.svg)](https://github.com/DiUS/java-faker)
 [![Jackson](https://img.shields.io/badge/Jackson-2.19.2-red.svg)](https://github.com/FasterXML/jackson)
 
-## 📋 Overview
+## 📋 Project Overview
 
-This project is a **production-ready API automation testing framework** for the FV Medical application, built following **industry-standard practices** and modern test automation principles. The framework demonstrates a comprehensive approach to API testing using cutting-edge tools and architectural patterns that align with current industry standards.
+This is a **comprehensive API automation testing framework** for the **FV Hospital (FB@Home)** application, designed to validate the complete patient lifecycle from registration to profile verification. The framework demonstrates **enterprise-grade testing practices** using modern tools and architectural patterns that align with industry standards.
 
-The framework follows **BDD (Behavior-Driven Development)** principles with Cucumber to create human-readable test scenarios that bridge the gap between technical and non-technical stakeholders, making it suitable for enterprise-level projects.
+### 🎯 Project Achievements
+
+✅ **Complete Patient Journey Automation** - End-to-end testing of patient registration, login, profile management, and account lifecycle  
+✅ **Advanced BDD Implementation** - Human-readable test scenarios using Cucumber with Gherkin syntax  
+✅ **Robust Test Data Management** - Dynamic test data generation with static JSON fallbacks  
+✅ **JSON Schema Validation** - Contract testing ensuring API response structure compliance  
+✅ **JWT Token Management** - Secure authentication handling across test scenarios  
+✅ **Multi-Environment Support** - Configurable endpoints and environment-specific testing  
+✅ **Comprehensive Reporting** - Multiple report formats with detailed execution analytics  
+✅ **CI/CD Ready** - Maven-based execution suitable for pipeline integration
+
+## 🏥 Application Under Test
+
+The **FV Hospital (FB@Home)** application is a comprehensive healthcare platform that enables:
+- Patient registration and authentication
+- Profile management and verification
+- Hospital Number (HN) assignment and verification
+- Insurance and identity document management
+- Complete patient lifecycle management
+
+## 🔄 Test Workflow Architecture
+
+```mermaid
+flowchart TD
+    A[Patient Registration] --> B[Authentication & Login]
+    B --> C[Profile Verification]
+    C --> D[HN Assignment Process]
+    D --> E[Account Management]
+    E --> F[Account Deletion]
+    
+    A1[Dynamic Test Data] --> A
+    A2[JSON Schema Validation] --> A
+    B1[JWT Token Management] --> B
+    C1[Document Upload] --> C
+    C2[Insurance Details] --> C
+    D1[CMD System Integration] --> D
+    E1[Profile Status Validation] --> E
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#ffebee
+```
 
 ## 🏗️ Framework Architecture
 
+### 📁 Project Structure Diagram
+
+```mermaid
+graph TD
+    A[fv-hospital-api-automation] --> B[src/test]
+    
+    B --> C[java/]
+    B --> D[resources/]
+    
+    C --> E[constants/]
+    C --> F[hooks/]
+    C --> G[requestPayloads/]
+    C --> H[responseModels/]
+    C --> I[runner/]
+    C --> J[stepDefinitions/]
+    C --> K[utils/]
+    
+    D --> L[features/]
+    D --> M[schemas/]
+    D --> N[testData/]
+    
+    E --> E1[EndPoints.java<br/>Environments.java]
+    F --> F1[Hooks.java<br/>Setup & Teardown]
+    G --> G1[SignUpPayload.java<br/>LoginPayload.java<br/>AddressPayload.java<br/>Insurance.java]
+    H --> H1[SignUpResponse.java<br/>LoginResponse.java<br/>GetUserDetailsResponse.java]
+    I --> I1[CucumberTest.java<br/>Test Runner Config]
+    J --> J1[signup_steps.java<br/>login_steps.java<br/>verify_profile_steps.java<br/>delete_account_steps.java]
+    K --> K1[SharedTestContext.java<br/>ApiConfig.java<br/>PatientProfile.java<br/>MediaApiClient.java]
+    
+    L --> L1[01_user_signup.feature<br/>02_user_login.feature<br/>04_delete_user_account.feature<br/>05_verify_profile_without_hn.feature]
+    M --> M1[signup_response_schema.json<br/>JSON Schema Validation]
+    N --> N1[signup_withoutHN_patient_profile.json<br/>Test Data Files]
+    
+    style A fill:#ff9999
+    style C fill:#99ccff
+    style D fill:#99ff99
+    style E fill:#ffcc99
+    style F fill:#cc99ff
+    style G fill:#ffff99
+    style H fill:#99ffcc
+    style I fill:#ff99cc
+    style J fill:#ccff99
+    style K fill:#ffccff
+    style L fill:#ccffff
+    style M fill:#ffffcc
+    style N fill:#ffcccc
 ```
-src/
-├── test/
-    ├── java/
-    │   ├── constants/           # API endpoints and environment configurations
-    │   ├── hooks/               # Cucumber lifecycle hooks for setup/teardown
-    │   ├── models/              # Data models and test data store
-    │   ├── requestPayloads/     # Request payload models (POJOs)
-    │   ├── responseModels/      # Response model classes for deserialization
-    │   ├── runner/              # Cucumber test runner configuration
-    │   ├── stepDefinitions/     # Step definition implementations
-    │   └── utils/             # Test data factories and helper utilities
-    └── resources/
-        ├── features/            # Gherkin feature files (BDD scenarios)
-        ├── schemas/             # JSON schema files for response validation
-        └── testData/            # Static test data files (JSON)
+
+### 🗂️ Directory Structure Overview
+
+```
+src/test/
+├── java/
+│   ├── constants/           # API endpoints and environment configurations
+│   ├── hooks/               # Cucumber lifecycle hooks for setup/teardown
+│   ├── requestPayloads/     # Request payload models (POJOs)
+│   ├── responseModels/      # Response model classes for deserialization
+│   ├── runner/              # Cucumber test runner configuration
+│   ├── stepDefinitions/     # Step definition implementations
+│   └── utils/               # Test utilities and shared context management
+└── resources/
+    ├── features/            # Gherkin feature files (BDD scenarios)
+    ├── schemas/             # JSON schema files for response validation
+    └── testData/            # Static test data files and media assets
 ```
 
 ## ✨ Key Features & Industry Standards Compliance
@@ -73,30 +164,39 @@ src/
 ## 🔄 API Test Coverage & Workflows
 
 ### 🏥 **Complete Patient Journey Testing**
-1. **Patient Registration** (`01_signupPatient.feature`)
-   - Complete signup flow with comprehensive field validation
-   - JSON schema validation for response structure
-   - Token extraction and storage for subsequent tests
 
-2. **User Authentication** (`02_loginPatient.feature`)
-   - Login functionality with credential validation
-   - JWT token validation and management
-   - Session establishment verification
+#### 1. **Patient Registration** (`01_user_signup.feature`)
+   - ✅ **Dynamic Test Data Generation**: Realistic patient data using SharedTestContext
+   - ✅ **Comprehensive Field Validation**: All required patient information fields
+   - ✅ **JSON Schema Validation**: Response structure compliance verification
+   - ✅ **Token Management**: JWT token extraction and secure storage
+   - ✅ **Profile Status Verification**: Initial profile status validation as "INCOMPLETE"
 
-3. **Profile Management** (`03_getUserProfile.feature`)
-   - Authenticated user profile retrieval
-   - Data integrity validation
-   - Verification status checks
+#### 2. **User Authentication** (`02_user_login.feature`)
+   - ✅ **Credential Validation**: Country code, phone number, and password authentication
+   - ✅ **JWT Token Validation**: Secure token generation and validation
+   - ✅ **Session Management**: Authentication state establishment
+   - ✅ **Response Validation**: Success status and token presence verification
 
-4. **Account Lifecycle** (`04_deletePatientAcc.feature`)
-   - Secure account deletion workflow
-   - Data cleanup verification
-   - End-to-end lifecycle completion
+#### 3. **Profile Verification Workflow** (`05_verify_profile_without_hn.feature`)
+   - ✅ **Multi-Step Verification Process**: Address, Photo ID, and Insurance details
+   - ✅ **Document Upload Integration**: Media API client for file uploads
+   - ✅ **CMD System Integration**: Cross-system validation with hospital management
+   - ✅ **Hospital Number (HN) Assignment**: Automated HN generation and verification
+   - ✅ **Profile Status Lifecycle**: Complete verification workflow tracking
+   - ✅ **Data Consistency Validation**: Patient-side vs CMD-side data matching
 
-### 🔗 **Test Dependencies & Flow**
-- **Sequential Execution**: Tests are designed to run in sequence
-- **State Management**: Token and user data shared across scenarios
-- **Clean Teardown**: Proper cleanup after test completion
+#### 4. **Account Lifecycle Management** (`04_delete_user_account.feature`)
+   - ✅ **Secure Account Deletion**: Authenticated deletion workflow
+   - ✅ **Data Cleanup Verification**: Complete account removal validation
+   - ✅ **End-to-End Lifecycle**: Complete patient journey from creation to deletion
+
+### 🔗 **Advanced Test Flow Management**
+- **🔄 Sequential Execution**: Tests designed for ordered execution with dependencies
+- **🗃️ Shared State Management**: `SharedTestContext` for cross-scenario data sharing
+- **🧹 Automated Cleanup**: `@cleanUp` hooks for proper test environment teardown
+- **🏷️ Tag-Based Execution**: `@requireUser` for dependency management
+- **🔐 Token Lifecycle**: Secure JWT token management across test scenarios
 
 ## 📊 Reporting & Analytics
 
@@ -118,22 +218,77 @@ After test execution, comprehensive reports are generated:
 ## 🛠️ Technology Stack & Dependencies
 
 ### 🔧 **Core Technologies**
-- **Java 17**: Modern LTS version with enhanced features
-- **Maven 3.8+**: Advanced dependency and build management
-- **Cucumber 7.26.0**: Latest BDD framework with enhanced features
-- **REST Assured 5.5.5**: Industry-leading API testing library
-- **JUnit 4.13.2**: Reliable test execution framework
+- **Java 17**: Modern LTS version with enhanced features and performance
+- **Maven 3.8+**: Advanced dependency and build management with multi-module support
+- **Cucumber 7.27.0**: Latest BDD framework with enhanced Gherkin support
+- **REST Assured 5.5.5**: Industry-leading API testing library with advanced validation
+- **JUnit 4.13.2**: Reliable test execution framework with comprehensive assertions
 
-### 📚 **Supporting Libraries**
-- **Jackson 2.19.2**: High-performance JSON processing
-- **JavaFaker 1.0.2**: Realistic test data generation
-- **JSON Schema Validator 5.4.0**: Contract testing support
-- **Cucumber PicoContainer 7.14.0**: Dependency injection
-- **Groovy 4.0.27**: Advanced scripting capabilities
+### 📚 **Supporting Libraries & Integrations**
+- **Jackson 2.19.2**: High-performance JSON processing and object mapping
+- **JSON Schema Validator 5.4.0**: Contract testing and response structure validation
+- **Cucumber PicoContainer 7.27.0**: Lightweight dependency injection container
+- **Maven Surefire Plugin 3.2.5**: Advanced test execution and reporting
+- **Maven Cucumber Reporting 5.9.0**: Enterprise-grade HTML report generation
+
+### 🏗️ **Architecture Patterns Implemented**
+- **Page Object Model (API Adaptation)**: Structured payload and response models
+- **Factory Pattern**: Dynamic test data generation with `SharedTestContext`
+- **Singleton Pattern**: Centralized configuration management
+- **Builder Pattern**: Fluent API request construction
+- **Strategy Pattern**: Multiple validation approaches (schema, field-level, business logic)
 
 
+
+## 🚀 Getting Started
+
+### 📋 Prerequisites
+- Java 17 or higher
+- Maven 3.8+ 
+- IDE (IntelliJ IDEA recommended)
+
+### 🏃‍♂️ Running Tests
+
+#### Run All Tests
+```bash
+mvn clean test
+```
+
+#### Run Specific Feature
+```bash
+mvn test -Dcucumber.options="src/test/resources/features/01_user_signup.feature"
+```
+
+#### Generate Reports
+```bash
+mvn clean test verify
+```
+
+### 📊 View Reports
+After test execution, reports are available at:
+- **HTML Report**: `target/cucumber-html-reports/overview-features.html`
+- **JSON Report**: `target/jsonReports/cucumber.json`
+- **Console Output**: Real-time execution feedback
+
+## 🎯 Key Technical Achievements
+
+🏆 **Enterprise-Grade Framework Design**  
+🏆 **Complete Healthcare Domain Coverage**  
+🏆 **Advanced BDD Implementation with Cucumber**  
+🏆 **Robust Test Data Management Strategy**  
+🏆 **Comprehensive API Contract Testing**  
+🏆 **Secure Authentication & Session Management**  
+🏆 **Multi-System Integration Testing (Patient + CMD)**  
+🏆 **Production-Ready CI/CD Integration**  
+🏆 **Industry-Standard Reporting & Analytics**  
+🏆 **Scalable Architecture with Design Patterns**
 
 ## 📬 Contact
 
-Soumesh Bhaumik: [bhaumiksoumesh12@gmail.com](mailto:bhaumiksoumesh12@gmail.com)
-LinkedIn: [https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/](https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/)
+**Soumesh Bhaumik**  
+📧 Email: [bhaumiksoumesh12@gmail.com](mailto:bhaumiksoumesh12@gmail.com)  
+💼 LinkedIn: [https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/](https://www.linkedin.com/in/contact-soumesh-bhaumik-a0b3b3352/)
+
+---
+
+*This framework demonstrates advanced API testing capabilities suitable for enterprise healthcare applications, showcasing modern testing practices and comprehensive automation strategies.*

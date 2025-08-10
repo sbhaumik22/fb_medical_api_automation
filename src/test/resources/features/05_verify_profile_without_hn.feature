@@ -2,8 +2,8 @@ Feature: Profile Verification Workflow for users without HN
 
   @requireUser @cleanUp
   Scenario: Add profile details (Address, Photo ID, Insurance) and complete profile verification lifecycle
-    Given the user provides personal information including address, photo ID, and insurance details
-    When the user submits a HTTP "<method>" request to the profile details endpoint "<endpoint>"
+    Given the user provides personal information
+    When the user submits a HTTP "POST" request to the profile details endpoint "CREATE_PROFILE_VERIFICATION_REQUEST"
     Then the API response status should be "success"
     And the response body should include valid verification request details with request status set to "OPEN"
     And retrieve the profile verification request from the CMD system using the requestId
