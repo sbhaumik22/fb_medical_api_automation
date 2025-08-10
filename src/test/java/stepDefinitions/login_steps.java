@@ -14,7 +14,7 @@ import utils.SharedTestContext;
 
 import static io.restassured.RestAssured.given;
 
-public class LoginStepDefinition extends ApiConfig {
+public class login_steps extends ApiConfig {
     RequestSpecification loginReqSpec;
     Response loginRes;
     LoginResponse loginResponse;

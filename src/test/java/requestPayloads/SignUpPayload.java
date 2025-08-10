@@ -13,7 +13,8 @@ public class SignUpPayload {
     private String gender;
     private String acceptedVersion;
     private String hnNumber;
-    // private String selectedLanguage; // Uncomment if used
+    private String selectedLanguage;
+    private String profilePic;
 
     // Getters and Setters
     public String getFirstAndMiddleName() {
@@ -112,7 +113,6 @@ public class SignUpPayload {
         this.hnNumber = hnNumber;
     }
 
-    /*
     public String getSelectedLanguage() {
         return selectedLanguage;
     }
@@ -120,5 +120,12 @@ public class SignUpPayload {
     public void setSelectedLanguage(String selectedLanguage) {
         this.selectedLanguage = selectedLanguage;
     }
-    */
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
 }

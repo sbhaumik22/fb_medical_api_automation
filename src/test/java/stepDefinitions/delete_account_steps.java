@@ -12,7 +12,7 @@ import utils.SharedTestContext;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
-public class DeleteAccStepDefinition extends ApiConfig {
+public class delete_account_steps extends ApiConfig {
     private RequestSpecification reqDeleteSpec;
     private Response delRes;
 

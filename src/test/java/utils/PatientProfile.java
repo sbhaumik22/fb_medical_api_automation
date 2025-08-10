@@ -12,7 +12,9 @@ public class PatientProfile {
     private String gender;
     private String dateOfBirth;
     private String acceptedVersion;
-//    private String hnNumber;
+    private String hnNumber;
+    private String selectedLanguage;
+    private String profilePic;
 
     public String getFirstAndMiddleName() {
         return firstAndMiddleName;
@@ -102,10 +104,27 @@ public class PatientProfile {
         this.acceptedVersion = acceptedVersion;
     }
 
-//    public String getHnNumber() {
-//        return hnNumber;
-//    }
-//    public void setHnNumber(String hnNumber) {
-//        this.hnNumber = hnNumber;
-//    }
+    public String getHnNumber() {
+        return hnNumber;
+    }
+
+    public void setHnNumber(String hnNumber) {
+        this.hnNumber = hnNumber;
+    }
+
+    public String getSelectedLanguage() {
+        return selectedLanguage;
+    }
+
+    public void setSelectedLanguage(String selectedLanguage) {
+        this.selectedLanguage = selectedLanguage;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
 }
