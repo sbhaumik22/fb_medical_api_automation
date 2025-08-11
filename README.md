@@ -64,32 +64,33 @@ flowchart TD
 graph TD
     A[fv-hospital-api-automation] --> B[src/test]
     
-    B --> C[java/]
+    B --> C[java/com/]
     B --> D[resources/]
     
-    C --> E[constants/]
-    C --> F[hooks/]
-    C --> G[requestPayloads/]
-    C --> H[responseModels/]
-    C --> I[runner/]
-    C --> J[stepDefinitions/]
-    C --> K[utils/]
+    C --> E[org/constants/]
+    C --> F[org/hooks/]
+    C --> G[org/requestPayloads/]
+    C --> H[org/responseModels/]
+    C --> I[org/runner/]
+    C --> J[org/api/stepDefinitions/]
+    C --> K[org/utils/]
+    C --> L[SharedTestContext.java<br/>PatientProfile.java]
     
-    D --> L[features/]
-    D --> M[schemas/]
-    D --> N[testData/]
+    D --> M[features/]
+    D --> N[schemas/]
+    D --> O[testData/]
     
     E --> E1[EndPoints.java<br/>Environments.java]
     F --> F1[Hooks.java<br/>Setup & Teardown]
-    G --> G1[SignUpPayload.java<br/>LoginPayload.java<br/>AddressPayload.java<br/>Insurance.java]
-    H --> H1[SignUpResponse.java<br/>LoginResponse.java<br/>GetUserDetailsResponse.java]
+    G --> G1[SignUpPayload.java<br/>LoginPayload.java<br/>Address.java<br/>Insurance.java<br/>PersonalInfo.java<br/>NationalIdentity.java<br/>Images.java]
+    H --> H1[SignUpResponse.java<br/>LoginResponse.java<br/>GetUserDetailsResponse.java<br/>MediaUploadResponse.java<br/>CreateProfileVerificationResponse.java]
     I --> I1[CucumberTest.java<br/>Test Runner Config]
-    J --> J1[signup_steps.java<br/>login_steps.java<br/>verify_profile_steps.java<br/>delete_account_steps.java]
-    K --> K1[SharedTestContext.java<br/>ApiConfig.java<br/>PatientProfile.java<br/>MediaApiClient.java]
+    J --> J1[Step Definitions<br/>API Test Steps]
+    K --> K1[ApiConfig.java<br/>MediaApiClient.java<br/>JsonUtil.java<br/>FetchUserDetails.java<br/>FetchNIDCategories.java]
     
-    L --> L1[01_user_signup.feature<br/>02_user_login.feature<br/>04_delete_user_account.feature<br/>05_verify_profile_without_hn.feature]
-    M --> M1[signup_response_schema.json<br/>JSON Schema Validation]
-    N --> N1[signup_withoutHN_patient_profile.json<br/>Test Data Files]
+    M --> M1[01_user_signup.feature<br/>02_user_login.feature<br/>04_delete_user_account.feature<br/>05_verify_profile_without_hn.feature]
+    N --> N1[JSON Schema Files<br/>Response Validation]
+    O --> O1[Test Data Files<br/>Static Test Assets]
     
     style A fill:#ff9999
     style C fill:#99ccff
@@ -101,27 +102,58 @@ graph TD
     style I fill:#ff99cc
     style J fill:#ccff99
     style K fill:#ffccff
-    style L fill:#ccffff
-    style M fill:#ffffcc
-    style N fill:#ffcccc
+    style L fill:#e6ccff
+    style M fill:#ccffff
+    style N fill:#ffffcc
+    style O fill:#ffcccc
 ```
 
 ### 🗂️ Directory Structure Overview
 
 ```
 src/test/
-├── java/
-│   ├── constants/           # API endpoints and environment configurations
-│   ├── hooks/               # Cucumber lifecycle hooks for setup/teardown
-│   ├── requestPayloads/     # Request payload models (POJOs)
-│   ├── responseModels/      # Response model classes for deserialization
-│   ├── runner/              # Cucumber test runner configuration
-│   ├── stepDefinitions/     # Step definition implementations
-│   └── utils/               # Test utilities and shared context management
+├── java/com/
+│   ├── SharedTestContext.java      # Global test context and data sharing
+│   ├── PatientProfile.java         # Patient profile management utilities
+│   └── org/
+│       ├── constants/              # API endpoints and environment configurations
+│       │   ├── EndPoints.java      # API endpoint definitions
+│       │   └── Environments.java   # Environment-specific configurations
+│       ├── hooks/                  # Cucumber lifecycle hooks for setup/teardown
+│       │   └── Hooks.java          # Test setup and cleanup hooks
+│       ├── requestPayloads/        # Request payload models (POJOs)
+│       │   ├── SignUpPayload.java  # User registration payload
+│       │   ├── LoginPayload.java   # Authentication payload
+│       │   ├── Address.java        # Address information model
+│       │   ├── Insurance.java      # Insurance details model
+│       │   ├── PersonalInfo.java   # Personal information model
+│       │   ├── NationalIdentity.java # National ID model
+│       │   └── Images.java         # Image upload model
+│       ├── responseModels/         # Response model classes for deserialization
+│       │   ├── SignUpResponse.java # Registration response model
+│       │   ├── LoginResponse.java  # Authentication response model
+│       │   ├── GetUserDetailsResponse.java # User details response
+│       │   ├── MediaUploadResponse.java    # Media upload response
+│       │   └── CreateProfileVerificationResponse.java # Profile verification response
+│       ├── runner/                 # Cucumber test runner configuration
+│       │   └── CucumberTest.java   # Main test runner class
+│       ├── api/stepDefinitions/    # Step definition implementations
+│       │   └── [Step Definition Classes] # BDD step implementations
+│       ├── auth/                   # Authentication utilities
+│       └── utils/                  # Test utilities and helper classes
+│           ├── ApiConfig.java      # API configuration management
+│           ├── MediaApiClient.java # Media upload client
+│           ├── JsonUtil.java       # JSON processing utilities
+│           ├── FetchUserDetails.java # User data retrieval
+│           └── FetchNIDCategories.java # NID category management
 └── resources/
-    ├── features/            # Gherkin feature files (BDD scenarios)
-    ├── schemas/             # JSON schema files for response validation
-    └── testData/            # Static test data files and media assets
+    ├── features/                   # Gherkin feature files (BDD scenarios)
+    │   ├── 01_user_signup.feature  # User registration scenarios
+    │   ├── 02_user_login.feature   # Authentication scenarios
+    │   ├── 04_delete_user_account.feature # Account deletion scenarios
+    │   └── 05_verify_profile_without_hn.feature # Profile verification scenarios
+    ├── schemas/                    # JSON schema files for response validation
+    └── testData/                   # Static test data files and media assets
 ```
 
 ## ✨ Key Features & Industry Standards Compliance
@@ -243,9 +275,34 @@ After test execution, comprehensive reports are generated:
 ## 🚀 Getting Started
 
 ### 📋 Prerequisites
-- Java 17 or higher
-- Maven 3.8+ 
-- IDE (IntelliJ IDEA recommended)
+- **Java 17 or higher** - Required for modern language features and performance optimizations
+- **Maven 3.8+** - For dependency management and build automation
+- **IDE** - IntelliJ IDEA recommended (with Cucumber and Gherkin plugins)
+- **Git** - For version control and project cloning
+
+### 🔧 Project Setup
+
+#### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd fv-hospital-api-automation
+```
+
+#### 2. Verify Java Installation
+```bash
+java -version
+# Should show Java 17 or higher
+```
+
+#### 3. Install Dependencies
+```bash
+mvn clean install
+```
+
+#### 4. Verify Setup
+```bash
+mvn clean compile
+```
 
 ### 🏃‍♂️ Running Tests
 
@@ -256,19 +313,98 @@ mvn clean test
 
 #### Run Specific Feature
 ```bash
+# Run user signup tests
 mvn test -Dcucumber.options="src/test/resources/features/01_user_signup.feature"
+
+# Run user login tests
+mvn test -Dcucumber.options="src/test/resources/features/02_user_login.feature"
+
+# Run profile verification tests
+mvn test -Dcucumber.options="src/test/resources/features/05_verify_profile_without_hn.feature"
+
+# Run account deletion tests
+mvn test -Dcucumber.options="src/test/resources/features/04_delete_user_account.feature"
 ```
 
-#### Generate Reports
+#### Run Tests with Tags
+```bash
+# Run tests that require user setup
+mvn test -Dcucumber.options="--tags @requireUser"
+
+# Run cleanup tests
+mvn test -Dcucumber.options="--tags @cleanUp"
+```
+
+#### Generate Comprehensive Reports
 ```bash
 mvn clean test verify
 ```
 
+#### Run Tests in Parallel (Advanced)
+```bash
+mvn test -Dparallel=methods -DthreadCount=4
+```
+
 ### 📊 View Reports
-After test execution, reports are available at:
+After test execution, comprehensive reports are available at:
 - **HTML Report**: `target/cucumber-html-reports/overview-features.html`
 - **JSON Report**: `target/jsonReports/cucumber.json`
 - **Console Output**: Real-time execution feedback
+- **Surefire Reports**: `target/surefire-reports/`
+
+### 🔧 Troubleshooting
+
+#### Common Issues and Solutions
+
+**Issue: Java Version Mismatch**
+```bash
+# Check current Java version
+java -version
+
+# If using wrong version, set JAVA_HOME
+export JAVA_HOME=/path/to/java17
+# On Windows: set JAVA_HOME=C:\Program Files\Java\jdk-17
+```
+
+**Issue: Maven Dependencies Not Resolved**
+```bash
+# Clear Maven cache and reinstall
+mvn dependency:purge-local-repository
+mvn clean install
+```
+
+**Issue: Tests Failing Due to Network/API Issues**
+```bash
+# Run tests with retry mechanism
+mvn test -Dsurefire.rerunFailingTestsCount=2
+```
+
+**Issue: IDE Not Recognizing Cucumber Features**
+- Install Cucumber for Java plugin in IntelliJ IDEA
+- Install Gherkin plugin for syntax highlighting
+- Restart IDE after plugin installation
+
+### 🌐 Environment Configuration
+
+The framework supports multiple environments through the `Environments.java` class:
+
+```java
+// Example environment switching
+System.setProperty("environment", "staging");
+// or
+System.setProperty("environment", "production");
+```
+
+**Available Environments:**
+- Development (default)
+- Staging
+- Production
+
+**Environment-Specific Configuration:**
+- Base URLs
+- API endpoints
+- Authentication settings
+- Timeout configurations
 
 ## 🎯 Key Technical Achievements
 
