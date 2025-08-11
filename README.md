@@ -272,78 +272,7 @@ After test execution, comprehensive reports are generated:
 
 
 
-## 🚀 Getting Started
 
-### 📋 Prerequisites
-- **Java 17 or higher** - Required for modern language features and performance optimizations
-- **Maven 3.8+** - For dependency management and build automation
-- **IDE** - IntelliJ IDEA recommended (with Cucumber and Gherkin plugins)
-- **Git** - For version control and project cloning
-
-### 🔧 Project Setup
-
-#### 1. Clone the Repository
-```bash
-git clone <repository-url>
-cd fv-hospital-api-automation
-```
-
-#### 2. Verify Java Installation
-```bash
-java -version
-# Should show Java 17 or higher
-```
-
-#### 3. Install Dependencies
-```bash
-mvn clean install
-```
-
-#### 4. Verify Setup
-```bash
-mvn clean compile
-```
-
-### 🏃‍♂️ Running Tests
-
-#### Run All Tests
-```bash
-mvn clean test
-```
-
-#### Run Specific Feature
-```bash
-# Run user signup tests
-mvn test -Dcucumber.options="src/test/resources/features/01_user_signup.feature"
-
-# Run user login tests
-mvn test -Dcucumber.options="src/test/resources/features/02_user_login.feature"
-
-# Run profile verification tests
-mvn test -Dcucumber.options="src/test/resources/features/05_verify_profile_without_hn.feature"
-
-# Run account deletion tests
-mvn test -Dcucumber.options="src/test/resources/features/04_delete_user_account.feature"
-```
-
-#### Run Tests with Tags
-```bash
-# Run tests that require user setup
-mvn test -Dcucumber.options="--tags @requireUser"
-
-# Run cleanup tests
-mvn test -Dcucumber.options="--tags @cleanUp"
-```
-
-#### Generate Comprehensive Reports
-```bash
-mvn clean test verify
-```
-
-#### Run Tests in Parallel (Advanced)
-```bash
-mvn test -Dparallel=methods -DthreadCount=4
-```
 
 ### 📊 View Reports
 After test execution, comprehensive reports are available at:
@@ -351,49 +280,6 @@ After test execution, comprehensive reports are available at:
 - **JSON Report**: `target/jsonReports/cucumber.json`
 - **Console Output**: Real-time execution feedback
 - **Surefire Reports**: `target/surefire-reports/`
-
-### 🔧 Troubleshooting
-
-#### Common Issues and Solutions
-
-**Issue: Java Version Mismatch**
-```bash
-# Check current Java version
-java -version
-
-# If using wrong version, set JAVA_HOME
-export JAVA_HOME=/path/to/java17
-# On Windows: set JAVA_HOME=C:\Program Files\Java\jdk-17
-```
-
-**Issue: Maven Dependencies Not Resolved**
-```bash
-# Clear Maven cache and reinstall
-mvn dependency:purge-local-repository
-mvn clean install
-```
-
-**Issue: Tests Failing Due to Network/API Issues**
-```bash
-# Run tests with retry mechanism
-mvn test -Dsurefire.rerunFailingTestsCount=2
-```
-
-**Issue: IDE Not Recognizing Cucumber Features**
-- Install Cucumber for Java plugin in IntelliJ IDEA
-- Install Gherkin plugin for syntax highlighting
-- Restart IDE after plugin installation
-
-### 🌐 Environment Configuration
-
-The framework supports multiple environments through the `Environments.java` class:
-
-```java
-// Example environment switching
-System.setProperty("environment", "staging");
-// or
-System.setProperty("environment", "production");
-```
 
 **Available Environments:**
 - Development (default)
@@ -405,19 +291,6 @@ System.setProperty("environment", "production");
 - API endpoints
 - Authentication settings
 - Timeout configurations
-
-## 🎯 Key Technical Achievements
-
-🏆 **Enterprise-Grade Framework Design**  
-🏆 **Complete Healthcare Domain Coverage**  
-🏆 **Advanced BDD Implementation with Cucumber**  
-🏆 **Robust Test Data Management Strategy**  
-🏆 **Comprehensive API Contract Testing**  
-🏆 **Secure Authentication & Session Management**  
-🏆 **Multi-System Integration Testing (Patient + CMD)**  
-🏆 **Production-Ready CI/CD Integration**  
-🏆 **Industry-Standard Reporting & Analytics**  
-🏆 **Scalable Architecture with Design Patterns**
 
 ## 📬 Contact
 
