@@ -80,6 +80,82 @@ public class Hooks {
         SharedTestContext.setUserId(loginResponse.jsonPath().getString("data.user._id"));
     }
 
+    public void loginToFVCMD() throws InterruptedException {
+        System.out.println("Launching the browser");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            driver.get("https://myclnq.co/stage/fv-cmd/");
+
+            // Verify page title
+            assertEquals("FV Hospital - Command Center", driver.getTitle());
+
+            // Verify visibility of elements
+            verifyElementVisibility(driver, explicitWait, "//img[@class='welcome-logo']");
+            verifyElementVisibility(driver, explicitWait, "//img[@alt='patient']");
+
+            // Verify welcome description
+            assertEquals(
+                    "Log in to access your account and continue your experience with us",
+                    driver.findElement(By.xpath("//p[@class='welcome-description']")).getText());
+
+            // Perform login
+            performLogin(driver, explicitWait);
+
+            // Switch to main window and maximize
+            switchToMainWindow(driver);
+
+//            Thread.sleep(2500);
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            String token = (String) js.executeScript("return window.localStorage;");
+//            System.out.println("FV CMD token ----------------------------------->" + token);
+//            SharedTestContext.setAdminToken(token);
+        } finally {
+            // Quit the driver
+            driver.quit();
+        }
+    }
+
+    public static void verifyElementVisibility(WebDriver driver, WebDriverWait wait, String xpath) {
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+        assertTrue(driver.findElement(By.xpath(xpath)).isDisplayed());
+    }
+
+    private static void performLogin(WebDriver driver, WebDriverWait wait) {
+        driver.findElement(By.className("welcome-microsoft")).click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='welcome-login']")));
+        driver.findElement(By.xpath("//div[@class='welcome-login']")).click();
+
+        Set<String> windowsIDs = driver.getWindowHandles();
+        List<String> windowIDList = new ArrayList<>(windowsIDs);
+        for (String winHandle : windowIDList) {
+            driver.switchTo().window(winHandle);
+            if (driver.getTitle() != null && driver.getTitle().contains("Sign in to your account")) {
+                break;
+            }
+        }
+
+        // Perform login steps
+        wait.until(ExpectedConditions.textToBe(By.xpath("//div[@role='heading']"), "Sign in"));
+        driver.findElement(By.xpath("//input[@id='i0116']")).sendKeys("*****");
+        driver.findElement(By.xpath("//input[@id='idSIButton9']")).click();
+
+        wait.until(ExpectedConditions.textToBe(By.xpath("//div[@role='heading']"), "Enter password"));
+        driver.findElement(By.xpath("//input[@id='i0118']")).sendKeys("*****");
+        driver.findElement(By.xpath("//input[@id='idSIButton9']")).click();
+
+        wait.until(ExpectedConditions.textToBe(By.xpath("//div[@role='heading']"), "Stay signed in?"));
+        driver.findElement(By.xpath("//input[@id='idSIButton9']")).click();
+    }
+
+    private static void switchToMainWindow(WebDriver driver) {
+        String mainWindowID = driver.getWindowHandles().iterator().next();
+        driver.switchTo().window(mainWindowID);
+    }
+
     @After("@cleanUp")
     public void tearDown() {
         String deletePath = EndPoints.USER_DELETE.getPath();
