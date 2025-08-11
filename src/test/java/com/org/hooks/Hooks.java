@@ -7,16 +7,10 @@ import com.org.constants.EndPoints;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.restassured.response.Response;
-import com.PatientProfile;
-import com.SharedTestContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
-import static io.restassured.RestAssured.given;
 import static com.org.utils.ApiConfig.getRequestSpecification;
 import static com.org.utils.ApiConfig.getResponseSpecification;
 import static io.restassured.RestAssured.given;
