@@ -9,9 +9,7 @@ public enum EndPoints {
     USER_UPLOAD_MEDIA("/api/v1/media/user/upload"),
     CREATE_PROFILE_VERIFICATION_REQUEST("/api/v1/user/profile/verification"),
     GET_NATIONAL_CATEGORIES("/api/v1/user/profile/national_id/categories"),
-    GET_ALL_INFO_ABOUT_REQUEST("/api/v1/cc/profile/verification"),
-    VERIFY_PERSONAL_INFO_BY_REQUEST_ID("/api/v1/cc/profile/verification"),
-    VERIFY_HN_NUMBER("/api/v1/cc/profile/verification");
+    GET_ALL_INFO_ABOUT_REQUEST("/api/v1/cc/profile/verification/{{REQUEST_ID}}");
 
     private final String path;
 

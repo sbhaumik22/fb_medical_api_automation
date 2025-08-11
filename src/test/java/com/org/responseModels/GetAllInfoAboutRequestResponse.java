@@ -134,10 +134,10 @@ public class GetAllInfoAboutRequestResponse {
             this.hnNumber = hnNumber;
         }
 
-        public boolean getIsHNVerified() {
+        public boolean isHNVerified() {
             return isHNVerified;
         }
-        public void setIsHNVerified(boolean isHNVerified) {
+        public void setHNVerified(boolean isHNVerified) {
             this.isHNVerified = isHNVerified;
         }
 
@@ -191,45 +191,45 @@ public class GetAllInfoAboutRequestResponse {
             this.completionPercentage = completionPercentage;
         }
 
-        public boolean getIsAddedMaritalStatus() {
+        public boolean isAddedMaritalStatus() {
             return isAddedMaritalStatus;
         }
-        public void setIsAddedMaritalStatus(boolean addedMaritalStatus) {
+        public void setAddedMaritalStatus(boolean addedMaritalStatus) {
             isAddedMaritalStatus = addedMaritalStatus;
         }
 
-        public boolean getIsVerifiedAddress() {
+        public boolean isVerifiedAddress() {
             return isVerifiedAddress;
         }
-        public void setIsVerifiedAddress(boolean verifiedAddress) {
+        public void setVerifiedAddress(boolean verifiedAddress) {
             isVerifiedAddress = verifiedAddress;
         }
 
-        public boolean getIsVerifiedNaationalID() {
+        public boolean isVerifiedNaationalID() {
             return isVerifiedNaationalID;
         }
-        public void setIsVerifiedNaationalID(boolean verifiedNaationalID) {
+        public void setVerifiedNaationalID(boolean verifiedNaationalID) {
             isVerifiedNaationalID = verifiedNaationalID;
         }
 
-        public boolean getIsVerifiedInsurance() {
+        public boolean isVerifiedInsurance() {
             return isVerifiedInsurance;
         }
-        public void setIsVerifiedInsurance(boolean verifiedInsurance) {
+        public void setVerifiedInsurance(boolean verifiedInsurance) {
             isVerifiedInsurance = verifiedInsurance;
         }
 
-        public boolean getIsAddedEmergencyInfo() {
+        public boolean isAddedEmergencyInfo() {
             return isAddedEmergencyInfo;
         }
-        public void setIsAddedEmergencyInfo(boolean addedEmergencyInfo) {
+        public void setAddedEmergencyInfo(boolean addedEmergencyInfo) {
             isAddedEmergencyInfo = addedEmergencyInfo;
         }
 
-        public boolean getIsAddedOccupation() {
+        public boolean isAddedOccupation() {
             return isAddedOccupation;
         }
-        public void setIsAddedOccupation(boolean addedOccupation) {
+        public void setAddedOccupation(boolean addedOccupation) {
             isAddedOccupation = addedOccupation;
         }
     }

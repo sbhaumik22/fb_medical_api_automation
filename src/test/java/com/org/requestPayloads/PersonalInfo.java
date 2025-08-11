@@ -3,7 +3,7 @@ package com.org.requestPayloads;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreatePersonalInfo {
+public class PersonalInfo {
     private String dateOfBirth;
     private String firstName;
     private String lastName;

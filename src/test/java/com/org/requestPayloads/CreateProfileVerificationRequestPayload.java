@@ -3,17 +3,17 @@ package com.org.requestPayloads;
 import java.util.List;
 
 public class CreateProfileVerificationRequestPayload {
-    private CreatePersonalInfo createPersonalInfo;
+    private PersonalInfo personalInfo;
     private Address address;
     private NationalIdentity nationalIdentity;
     private List<Insurance> insurances;
 
-    public CreatePersonalInfo getPersonalInfo() {
-        return createPersonalInfo;
+    public PersonalInfo getPersonalInfo() {
+        return personalInfo;
     }
 
-    public void setPersonalInfo(CreatePersonalInfo createPersonalInfo) {
-        this.createPersonalInfo = createPersonalInfo;
+    public void setPersonalInfo(PersonalInfo personalInfo) {
+        this.personalInfo = personalInfo;
     }
 
     public Address getAddress() {
