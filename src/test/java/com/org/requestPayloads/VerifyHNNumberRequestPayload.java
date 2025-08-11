@@ -2,18 +2,19 @@ package com.org.requestPayloads;
 
 import java.util.List;
 
-public class CreateProfileVerificationRequestPayload {
-    private CreatePersonalInfo createPersonalInfo;
+public class VerifyHNNumberRequestPayload {
+    private VerifyPersonalInfo personalInfo;
     private Address address;
     private NationalIdentity nationalIdentity;
     private List<Insurance> insurances;
 
-    public CreatePersonalInfo getPersonalInfo() {
-        return createPersonalInfo;
+    // Getters and Setters
+    public VerifyPersonalInfo getPersonalInfo() {
+        return personalInfo;
     }
 
-    public void setPersonalInfo(CreatePersonalInfo createPersonalInfo) {
-        this.createPersonalInfo = createPersonalInfo;
+    public void setPersonalInfo(VerifyPersonalInfo personalInfo) {
+        this.personalInfo = personalInfo;
     }
 
     public Address getAddress() {
@@ -39,5 +40,4 @@ public class CreateProfileVerificationRequestPayload {
     public void setInsurances(List<Insurance> insurances) {
         this.insurances = insurances;
     }
-
 }

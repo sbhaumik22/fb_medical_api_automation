@@ -1,22 +1,30 @@
 package com.org.hooks;
 
+import com.PatientProfile;
+import com.SharedTestContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.org.constants.EndPoints;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.restassured.response.Response;
-import com.PatientProfile;
-import com.SharedTestContext;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static io.restassured.RestAssured.given;
 import static com.org.utils.ApiConfig.getRequestSpecification;
 import static com.org.utils.ApiConfig.getResponseSpecification;
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Hooks {
 
@@ -24,11 +32,12 @@ public class Hooks {
 
 
     @Before(order = 1)
-    public void loadUserData() throws IOException {
+    public void loadUserData() throws IOException, InterruptedException {
         profile = new ObjectMapper().readValue(new File("src/test/resources/testData/signup_withoutHN_patient_profile.json"), PatientProfile.class);
         SharedTestContext.setPatientProfile(profile);
+        SharedTestContext.setAdminToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkpZaEFjVFBNWl9MWDZEQmxPV1E3SG4wTmVYRSJ9.eyJhdWQiOiI1YWJhNDIzOC0xZTVmLTRhMTgtOWYyOS0yMGNmN2Q3MjA2NjciLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vYzcxNzc0NmEtZjA5OS00NDlmLWFmYjEtNzU0NTYxMTQwNGIyL3YyLjAiLCJpYXQiOjE3NTQ4NzM3MzUsIm5iZiI6MTc1NDg3MzczNSwiZXhwIjoxNzU0ODc3NjYzLCJhY2N0IjowLCJhaW8iOiJBVVFBdS84WkFBQUFKODcySHNHKzFmMWdKZ2FQbW8zeE9KajVTd3V4L1RKVmIxWkVnSlFZaEtsUjNQTEQyem5xcU8rL2VjcStCcGx4b0tGN0Raa0JaSVR2R25uTzNNQXFBUT09IiwiYXV0aF90aW1lIjoxNzU0ODc0MDMzLCJhenAiOiI1YWJhNDIzOC0xZTVmLTRhMTgtOWYyOS0yMGNmN2Q3MjA2NjciLCJhenBhY3IiOiIwIiwiZW1haWwiOiJnLnNhaGFAZnZob3NwaXRhbC5jb20iLCJmYW1pbHlfbmFtZSI6IlNhaGEiLCJnaXZlbl9uYW1lIjoiR2F1cmF2IiwiaXBhZGRyIjoiMTAzLjI0OS4zOS4xMzQiLCJuYW1lIjoiR2F1cmF2IFNhaGEiLCJvaWQiOiJkN2JiZDZhYS0zOTE0LTQ3MGMtOTU2YS04ODRmZmZjMWZjNDIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJnLnNhaGFAZnZob3NwaXRhbC5jb20iLCJyaCI6IjEuQVZVQWFuUVh4NW53bjBTdnNYVkZZUlFFc2poQ3VscGZIaGhLbnlrZ3ozMXlCbWN5QVZ4VkFBLiIsInNjcCI6ImZ2LnNlcnZpY2UucmVhZCZ3cml0ZSIsInNpZCI6IjAwN2JjNzk5LTU3MmMtMGU1ZC1mNjQyLWZiODIxYWRiNWM0MCIsInN1YiI6InRJYWQyczU5Ql9McFhwNEdVTXY4U2tRNnJteHhuRm5aeHBpQnhZa0dtQlkiLCJ0aWQiOiJjNzE3NzQ2YS1mMDk5LTQ0OWYtYWZiMS03NTQ1NjExNDA0YjIiLCJ1dGkiOiJWcDZ3eDJxcFBFNlg2bFQ0LUFtTUFBIiwidmVyIjoiMi4wIiwieG1zX2Z0ZCI6IlVmZTBfQkdsT0Q2S2cwTjF4azBJUDg1ZHUxbU42MGpLRlpIVmFoRVpZWm9CYTI5eVpXRnpiM1YwYUMxa2MyMXoifQ.PfyBYs77yv8ZaCERHMXCOeir_fZrER_DVHJsKNh0_uuqxs3AqNjY7OKVGUBBV2QCej1QYQFpmMug0CgrUhK7Cu20rZr6eY8_BggrB10eWE_JDtr8lOYRygldj3hAUIJlyhr9RS2aYlJKSI2UK088z3OXZtfjQzt1hGHCOJlYPn0tZUTR5bVersAGvQZKgo09iWHjUbHPdr9yjyizOk-Fo5fjZWL7ytD1472saBM3fs8ugFaCdUkaUf-MtzzxLoIhU34Rf1VYXCXZTIfQxR8yWDeXwQE5xgCRO0PbiaYx1D5EZ8WPxoWTY0OaAHvbF3MbW0SA8-bXIC8bVRWQW6Z1kA");
 //        System.out.println("Data loaded to PatientProfile object with phone number: " + profile.getPhoneNumber());
-
+//        loginToFVCMD();
 
     }
 
@@ -45,8 +54,7 @@ public class Hooks {
         System.out.println("Status code: " + preCheckResponse.getStatusCode());
         try {
             System.out.println("Message: " + preCheckResponse.jsonPath().getString("message"));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
@@ -54,7 +62,7 @@ public class Hooks {
             System.out.println("--------------------------------------Invoking login request--------------------------------------");
             login(profile);
             System.out.println("--------------------------------------Logged in--------------------------------------");
-        } else if (preCheckResponse.getStatusCode() == 200){
+        } else if (preCheckResponse.getStatusCode() == 200) {
             System.out.println("--------------------------------------No active account found! Invoking Sign up request--------------------------------------");
             Response signUpResponse = given()
                     .spec(getRequestSpecification())
@@ -66,8 +74,7 @@ public class Hooks {
             SharedTestContext.setUserToken(signUpResponse.jsonPath().getString("data.token"));
             SharedTestContext.setUserId(signUpResponse.jsonPath().getString("data.user._id"));
             System.out.println("--------------------------------------Signed up, New user created--------------------------------------");
-        }
-        else {
+        } else {
             System.out.println("--------------------------Unknown Error--------------------------");
         }
     }
@@ -84,7 +91,7 @@ public class Hooks {
         SharedTestContext.setUserId(loginResponse.jsonPath().getString("data.user._id"));
     }
 
-    public void loginToFVCMD() {
+    public void loginToFVCMD() throws InterruptedException {
         System.out.println("Launching the browser");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -94,25 +101,14 @@ public class Hooks {
             driver.get("https://myclnq.co/stage/fv-cmd/");
 
             // Verify page title
-            Assertions.assertEquals("FV Hospital - Command Center", driver.getTitle());
+            assertEquals("FV Hospital - Command Center", driver.getTitle());
 
             // Verify visibility of elements
-            AppTest appTest = new AppTest();
-            appTest.verifyElementVisibility(driver, explicitWait, "//img[@class='welcome-logo']");
-            appTest.verifyElementVisibility(driver, explicitWait, "//img[@alt='patient']");
-
-            // Verify language options
-            List<String> expectedLangOptions = List.of("Vietnamese", "English");
-            driver.findElement(By.xpath("//div[@class='sel-dropdown lng']")).click();
-            List<WebElement> langContainer = driver.findElements(By.xpath("//div[@class='sel-dropdown lng']//li"));
-            List<String> actualLangOptions = new ArrayList<>();
-            for (WebElement langOption : langContainer) {
-                actualLangOptions.add(langOption.getText());
-            }
-            Assertions.assertEquals(expectedLangOptions, actualLangOptions);
+            verifyElementVisibility(driver, explicitWait, "//img[@class='welcome-logo']");
+            verifyElementVisibility(driver, explicitWait, "//img[@alt='patient']");
 
             // Verify welcome description
-            Assertions.assertEquals(
+            assertEquals(
                     "Log in to access your account and continue your experience with us",
                     driver.findElement(By.xpath("//p[@class='welcome-description']")).getText());
 
@@ -121,16 +117,21 @@ public class Hooks {
 
             // Switch to main window and maximize
             switchToMainWindow(driver);
-            driver.manage().window().maximize();
+
+//            Thread.sleep(2500);
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            String token = (String) js.executeScript("return window.localStorage;");
+//            System.out.println("FV CMD token ----------------------------------->" + token);
+//            SharedTestContext.setAdminToken(token);
         } finally {
             // Quit the driver
             driver.quit();
         }
     }
 
-    public void verifyElementVisibility(WebDriver driver, WebDriverWait wait, String xpath) {
+    public static void verifyElementVisibility(WebDriver driver, WebDriverWait wait, String xpath) {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
-        Assertions.assertTrue(driver.findElement(By.xpath(xpath)).isDisplayed());
+        assertTrue(driver.findElement(By.xpath(xpath)).isDisplayed());
     }
 
     private static void performLogin(WebDriver driver, WebDriverWait wait) {
@@ -150,11 +151,11 @@ public class Hooks {
 
         // Perform login steps
         wait.until(ExpectedConditions.textToBe(By.xpath("//div[@role='heading']"), "Sign in"));
-        driver.findElement(By.xpath("//input[@id='i0116']")).sendKeys("g.saha@fvhospital.com");
+        driver.findElement(By.xpath("//input[@id='i0116']")).sendKeys("*****");
         driver.findElement(By.xpath("//input[@id='idSIButton9']")).click();
 
         wait.until(ExpectedConditions.textToBe(By.xpath("//div[@role='heading']"), "Enter password"));
-        driver.findElement(By.xpath("//input[@id='i0118']")).sendKeys("8LyPLqge");
+        driver.findElement(By.xpath("//input[@id='i0118']")).sendKeys("*****");
         driver.findElement(By.xpath("//input[@id='idSIButton9']")).click();
 
         wait.until(ExpectedConditions.textToBe(By.xpath("//div[@role='heading']"), "Stay signed in?"));

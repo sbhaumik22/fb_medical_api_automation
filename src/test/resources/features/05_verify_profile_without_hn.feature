@@ -6,7 +6,7 @@ Feature: Profile Verification Workflow for users without Hospital Number (HN)
     Given a user has signed up without an HN
     And the user provides personal information:
       | firstName | lastName | gender | dateOfBirth | countryCode | phoneNumber | email                    | profilePhoto                                                                                                                                                          | relation | hnNumber |
-      | Emily     | Watson   | Female | 1990-05-20  | 84          | 979822674   | emily.watson@example.com | https://images.unsplash.com/photo-1566876657812-66eb7b3b1ad5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D | SELF     | null     |
+      | Emily     | Watson   | Female | 1990-05-15  | 84          | 979822674   | emily.watson@example.com | https://images.unsplash.com/photo-1566876657812-66eb7b3b1ad5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D | SELF     | null     |
     And the user provides current address details
       | personalCountryCode | personalPhoneNumber | officeCountryCode | officePhoneNumber | street      | ward        | district | postalCode | city     | province  | saveAs |
       | 84                  | 978907276           | 84                | 978907276         | Park Street | Ward no. 60 | Kolkata  | 711109     | New Town | West Side | Home   |
@@ -21,7 +21,9 @@ Feature: Profile Verification Workflow for users without Hospital Number (HN)
     And the verification request status should be "OPEN"
     And the system retrieves the verification request from CMD using the stored requestId
     And CMD request data should match the patient-side submission
-    And the system assigns a unique Hospital Number
-    And the profile is marked as verified
-    And the profile status should have isHNVerified as "true"
-    And the assigned HN should match the admin-provided HN
+    And assign admin to the verification request
+    And the admin assigns a unique Hospital Number
+      | firstName | lastName | gender | dateOfBirth | email                       | countryCode | phoneNumber | insuranceCategory         | hnNumber  |
+      | Soumesh   | Bhaumik  | Female | 1990-05-15  | bhaumiksoumesh115@gmail.com | 84          | 978907276   | OPD International Insured | 880008879 |
+    And the profile status should have isHNVerified
+    And check the profile is marked as verified using GetProfileRequest using relativeId and the assigned HN should match the admin-provided HN
