@@ -24,8 +24,6 @@ public class Hooks {
         SharedTestContext.setPatientProfile(profile);
         SharedTestContext.setAdminToken("");
         System.out.println("Data loaded to PatientProfile object with phone number: " + profile.getPhoneNumber());
-
-
     }
 
     @Before("@requireUser")

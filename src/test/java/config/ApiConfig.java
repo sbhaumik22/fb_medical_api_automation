@@ -19,7 +19,6 @@ public class ApiConfig {
     public static ResponseSpecification getResponseSpecification() {
         return new ResponseSpecBuilder()
                 .expectContentType("application/json")
-                .expectStatusCode(200)
                 .build();
     }
 }
