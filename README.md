@@ -12,21 +12,21 @@ A comprehensive API automation testing framework for the **FV Hospital (FB@Home)
 
 ## 🎯 Key Features
 
-✅ **Complete Patient Journey Testing** - End-to-end automation of patient registration, authentication, and profile management  
-✅ **BDD Implementation** - Cucumber-based scenarios with Gherkin syntax for readable test documentation  
+✅ **Complete Patient Journey Testing** - End-to-end automation covering registration, authentication, profile verification, and account management  
+✅ **BDD Implementation** - Cucumber-based scenarios with Gherkin syntax for readable, business-friendly test documentation  
 ✅ **Robust API Testing** - REST Assured integration with comprehensive request/response validation  
 ✅ **JSON Schema Validation** - Contract testing ensuring API response structure compliance  
-✅ **Dynamic Test Data Management** - Flexible test data generation and management  
-✅ **JWT Authentication** - Secure token-based authentication handling  
+✅ **Dynamic Test Data Management** - Flexible test data generation with both positive and negative test scenarios  
+✅ **JWT Authentication** - Secure token-based authentication handling across test scenarios  
 ✅ **Multi-Format Reporting** - HTML, JSON, and console reports with detailed execution analytics  
 ✅ **CI/CD Ready** - Maven-based execution suitable for continuous integration pipelines
 
 ## 🏥 Application Under Test
 
-The **FV Hospital (FB@Home)** platform provides:
+The **FV Hospital (FB@Home)** platform provides comprehensive healthcare services including:
 - Patient registration and authentication
 - Profile management and verification
-- Hospital Number (HN) assignment
+- Hospital Number (HN) assignment and validation
 - Insurance and identity document management
 - Complete patient lifecycle operations
 
@@ -36,83 +36,96 @@ The **FV Hospital (FB@Home)** platform provides:
 src/test/
 ├── java/
 │   ├── clients/           # API client implementations
-│   ├── config/            # Configuration management
+│   │   └── MediaApiClient.java
+│   ├── config/            # Configuration and environment management
+│   │   ├── ApiConfig.java
+│   │   ├── EndPoints.java
+│   │   └── Environments.java
 │   ├── core/              # Core framework components
-│   ├── features/          # Feature-specific test logic
+│   │   ├── Hooks.java
+│   │   ├── PatientProfile.java
+│   │   └── SharedTestContext.java
+│   ├── features/          # Gherkin feature files
+│   │   ├── 01_user_signup.feature
+│   │   ├── 02_user_login.feature
+│   │   ├── 04_delete_user_account.feature
+│   │   └── 05_verify_profile_without_hn.feature
 │   ├── models/            # Request/Response POJOs
+│   │   ├── requests/      # Request payload models
+│   │   └── responses/     # Response model classes
 │   ├── runner/            # Cucumber test runners
+│   │   └── CucumberTest.java
 │   ├── stepDefinitions/   # BDD step implementations
+│   │   ├── delete_account_steps.java
+│   │   ├── login_steps.java
+│   │   ├── signup_steps.java
+│   │   └── verify_profile_steps.java
 │   └── utils/             # Utility classes and helpers
+│       ├── FetchNIDCategories.java
+│       ├── FetchUserDetails.java
+│       └── JsonUtil.java
 └── resources/
     ├── schemas/           # JSON schema files for validation
+    │   └── signup_response_schema.json
     └── testData/          # Static test data and assets
+        ├── Frame 1321316900.png
+        └── signup_withoutHN_patient_profile.json
 ```
 
 ## 🔄 Test Coverage
 
 ### Core Test Scenarios
 
-1. **Patient Registration**
-   - User signup with comprehensive field validation
-   - Dynamic test data generation
-   - Response schema validation
-   - JWT token extraction and management
+#### 1. **Patient Registration** (`01_user_signup.feature`)
+- ✅ **Positive Testing**: Valid user signup with comprehensive field validation
+- ✅ **Negative Testing**: Invalid credentials handling (phone, email, required fields)
+- ✅ **Dynamic Test Data**: Parameterized test scenarios with data tables
+- ✅ **Response Validation**: Schema validation and status code verification
+- ✅ **Profile Status Tracking**: Initial profile status validation (OPEN/INCOMPLETE)
+- ✅ **JWT Token Management**: Token extraction and secure storage
 
-2. **User Authentication**
-   - Login credential validation
-   - Session management
-   - Token lifecycle handling
+#### 2. **User Authentication** (`02_user_login.feature`)
+- ✅ **Credential Validation**: Country code, phone number, and password authentication
+- ✅ **Session Management**: Authentication state establishment
+- ✅ **Token Lifecycle**: JWT token generation and validation
+- ✅ **Security Testing**: Authentication failure scenarios
 
-3. **Profile Verification**
-   - Multi-step verification process
-   - Document upload integration
-   - Hospital Number (HN) assignment
-   - Profile status lifecycle tracking
+#### 3. **Profile Verification** (`05_verify_profile_without_hn.feature`)
+- ✅ **Multi-Step Verification**: Address, Photo ID, and Insurance details
+- ✅ **Document Upload**: Media API integration for file uploads
+- ✅ **Hospital Number Assignment**: HN generation and verification workflow
+- ✅ **Profile Status Lifecycle**: Complete verification workflow tracking
+- ✅ **Data Consistency**: Cross-system validation
 
-4. **Account Management**
-   - Secure account deletion
-   - Data cleanup verification
-   - End-to-end lifecycle testing
+#### 4. **Account Management** (`04_delete_user_account.feature`)
+- ✅ **Secure Deletion**: Authenticated account deletion workflow
+- ✅ **Data Cleanup**: Complete account removal validation
+- ✅ **End-to-End Lifecycle**: Full patient journey testing
 
 ## 🛠️ Technology Stack
 
 ### Core Technologies
-- **Java 17** - Modern LTS version with enhanced performance
-- **Maven 3.8+** - Dependency and build management
-- **Cucumber 7.27.0** - BDD framework with Gherkin support
-- **REST Assured 5.5.5** - API testing library
-- **JUnit 4.13.2** - Test execution framework
+- **Java 17** - Modern LTS version with enhanced performance and features
+- **Maven 3.8+** - Dependency management and build automation
+- **Cucumber 7.27.0** - BDD framework with advanced Gherkin support
+- **REST Assured 5.5.5** - Comprehensive API testing library
+- **JUnit 4.13.2** - Reliable test execution framework
 
 ### Supporting Libraries
-- **Jackson 2.19.2** - JSON processing and object mapping
-- **JSON Schema Validator 5.4.0** - Response structure validation
-- **Cucumber PicoContainer 7.27.0** - Dependency injection
-- **Maven Surefire Plugin 3.2.5** - Test execution and reporting
-- **Maven Cucumber Reporting 5.9.0** - HTML report generation
+- **Jackson 2.19.2** - High-performance JSON processing and object mapping
+- **JSON Schema Validator 5.4.0** - Contract testing and response structure validation
+- **Cucumber PicoContainer 7.27.0** - Lightweight dependency injection
+- **Maven Surefire Plugin 3.2.5** - Advanced test execution and reporting
+- **Maven Cucumber Reporting 5.9.0** - Enterprise-grade HTML report generation
 
-### 📊 Reports
+## 🏛️ Architecture & Design Patterns
 
-After test execution, reports are generated in:
-- **HTML Report**: `target/cucumber-html-reports/overview-features.html`
-- **JSON Report**: `target/jsonReports/cucumber.json`
-- **Console Output**: Real-time execution feedback
-
-## 🏛️ Architecture Patterns
-
-- **Page Object Model (API Adaptation)** - Structured request/response models
-- **Factory Pattern** - Dynamic test data generation
-- **Singleton Pattern** - Configuration management
+- **Page Object Model (API Adaptation)** - Structured request/response models for maintainability
+- **Factory Pattern** - Dynamic test data generation with `SharedTestContext`
+- **Singleton Pattern** - Centralized configuration management
 - **Builder Pattern** - Fluent API request construction
-- **Strategy Pattern** - Multiple validation approaches
-
-## 📈 Best Practices Implemented
-
-- **BDD Methodology** - Human-readable test scenarios
-- **Test Data Management** - Dynamic and static data strategies
-- **Contract Testing** - JSON schema validation
-- **Security Testing** - JWT token management
-- **Reporting** - Comprehensive test execution analytics
-- **CI/CD Integration** - Pipeline-ready execution
+- **Strategy Pattern** - Multiple validation approaches (schema, field-level, business logic)
+- **Dependency Injection** - Clean object management using Cucumber PicoContainer
 
 ## 📬 Contact
 
@@ -122,4 +135,4 @@ After test execution, reports are generated in:
 
 ---
 
-*A professional API automation framework demonstrating modern testing practices for healthcare applications.*
+*A professional API automation framework demonstrating modern testing practices and comprehensive healthcare application validation.*
